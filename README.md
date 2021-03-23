@@ -17,25 +17,25 @@ In the example .ino file edit the ssid and wifi_password, upload sketch to proce
 
 ## Features
 The library provides the following functions for creating and organizing elements on a webpage
-* **TinyHTML(char* _pageTitle, int _JSPollingRate, int _commandBufferMaxSize)**
-* **void SetPageBackgroundColor(char* _pageBackgroundColor)**
-* **int AddHeaderText(char* _text, char* _fontColor, char* _font, int _headerLevel, bool _underline)**
-* **int AddJoystick(float _sizePercentage, float _joystickSizePercentage, char* _backgroundColor, char* _outlineColor, char* _joystickColor)**
-* **int AddHorizontalSlider(float _rangeMin, float _rangeMax, float _stepSize, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, char* _backgroundColor, char* _outlineColor, char* _sliderHandleColor)**
-* **int AddVerticalSlider(float _rangeMin, float _rangeMax, float _stepSize, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, char* _backgroundColor, char* _outlineColor, char* _sliderHandleColor)**
-* **int AddButton(char* _text, float _sizePercentage, float _fontSize, char* _buttonColor, char* _textColor, char* _outlineColor, char* _toggledColor)**
-* **int AddGridTable(int _rows, int _columns)**
-* **int AddPlaceholder(float _sizeW, float _sizeH)**
-* **float GetJoystickX(int _ID)**
-* **float GetJoystickY(int _ID)**
-* **float GetSliderValue(int _ID)**
-* **bool GetButtonState(int _ID)**
-* **void HandleClient(WiFiServer _web_server)**
+* TinyHTML(char* _pageTitle, int _JSPollingRate, int _commandBufferMaxSize)
+* void SetPageBackgroundColor(char* _pageBackgroundColor)
+* int AddHeaderText(char* _text, char* _fontColor, char* _font, int _headerLevel, bool _underline)
+* int AddJoystick(float _sizePercentage, float _joystickSizePercentage, char* _backgroundColor, char* _outlineColor, char* _joystickColor)
+* int AddHorizontalSlider(float _rangeMin, float _rangeMax, float _stepSize, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, char* _backgroundColor, char* _outlineColor, char* _sliderHandleColor)
+* int AddVerticalSlider(float _rangeMin, float _rangeMax, float _stepSize, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, char* _backgroundColor, char* _outlineColor, char* _sliderHandleColor)
+* int AddButton(char* _text, float _sizePercentage, float _fontSize, char* _buttonColor, char* _textColor, char* _outlineColor, char* _toggledColor)
+* int AddGridTable(int _rows, int _columns)
+* int AddPlaceholder(float _sizeW, float _sizeH)
+* float GetJoystickX(int _ID)
+* float GetJoystickY(int _ID)
+* float GetSliderValue(int _ID)
+* bool GetButtonState(int _ID)
+* void HandleClient(WiFiServer _web_server)
 
-*Functions that start with "Add" return an int that is the ID of that element
-*IDs can be stored and used in functions that start with "Get" to retrieve the value of the element as it is manipulated on the webpage
-*The joystick element can be double clicked and then controlled using WASD on PC
-*See TinyHTML.h for the default values used in the above functions
+* Functions that start with "Add" return an int that is the ID of that element
+* IDs can be stored and used in functions that start with "Get" to retrieve the value of the element as it is manipulated on the webpage
+* The joystick element can be double clicked and then controlled using WASD on PC
+* See TinyHTML.h for the default values used in the above functions
 
 ## Limitations
 * Cannot remove elements during runtime
