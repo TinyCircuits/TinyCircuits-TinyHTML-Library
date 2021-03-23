@@ -1,6 +1,6 @@
 # TinyCircuits TinyHTML Library
 
-This library allows for creating simple webpages quickly with the ability to change the look or theme.
+This library allows for creating simple webpages quickly with the ability to change the look or theme that can be used to control or interact with projects/robots.
 
 The WiFi101 Arduino library is needed in conjunction with any TinyCircuits processor board (TinyZero, etc) and the WiFi TinyShield.
 
