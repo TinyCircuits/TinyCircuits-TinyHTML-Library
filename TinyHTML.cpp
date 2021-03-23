@@ -222,7 +222,6 @@ void TinyHTML::HandleClient(WiFiServer _web_server){
       current_char = client.read();
       chars_read_count++;
 
-
       if(current_char != '$'){                                                      // Unless $ is found, read chars from client web broswer GET
         if(chars_read_count == 6 && current_char != ' '){                           // If at char read 6 and not whitespace, the GET from client contains a command
           command[chars_read_count-6] = current_char;                               // Start storing chars now (the first char of a command is its ID)
@@ -249,7 +248,7 @@ void TinyHTML::HandleClient(WiFiServer _web_server){
               }
           }else if(current_char != '['){                                            // By this point, current_char is not $, ], or now [ so decode paramters
             if(current_char != ','){                                                // if the paramter char is not a comma to seperate paramters, move on to storing for later conversion
-              decodingParameters[paramterIndex][paramterCharIndex] = current_char;  // Store the paramter string char
+              decodingParameters[paramterIndex][paramterCharIndex] = current_char;  // Store the parameter string char
               paramterCharIndex++;                                                  // Increase so the next time is stored after the one just stored
             }else{
               decodingParameters[paramterIndex][paramterCharIndex] = '\0';          // Instead of storing another char, since we found a comma, store ending char \0 for atoi and atof functions

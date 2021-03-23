@@ -129,6 +129,7 @@ void TinyHTMLSlider::SendSliderCSSToClient(WiFiClient &_client){
   _client.print(ID);
   _client.println("::-webkit-slider-thumb{");
   _client.println(" -webkit-appearance: none;");
+  _client.println(" -moz-appearance: none;");
   _client.println(" appearance: none;");
   _client.println(" cursor: pointer;");
   _client.print(" background-color: ");
@@ -146,6 +147,7 @@ void TinyHTMLSlider::SendSliderCSSToClient(WiFiClient &_client){
   _client.print(ID);
   _client.println("::-moz-range-thumb{");
   _client.println(" -webkit-appearance: none;");
+  _client.println(" -moz-appearance: none;");
   _client.println(" appearance: none;");
   _client.println(" cursor: pointer;");
   _client.print(" background-color: ");
@@ -153,9 +155,9 @@ void TinyHTMLSlider::SendSliderCSSToClient(WiFiClient &_client){
   _client.println(";");
   _client.print(" height: ");
   _client.print(sliderVWSize);
-  _client.println("px;");
+  _client.println("vw;");
   _client.print(" width: ");
   _client.print(sliderVWSize);
-  _client.println("px;");
+  _client.println("vw;");
   _client.println("}");
 }
