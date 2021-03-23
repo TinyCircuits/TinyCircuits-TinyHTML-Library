@@ -48,6 +48,7 @@ The library provides the following functions for creating and organizing element
 
 ## Tested web browsers
 * Chrome on Windows Desktop
+* Microsoft Edge on Desktop
 * Chrome on iPhone
 * Safari on iPhone
 
