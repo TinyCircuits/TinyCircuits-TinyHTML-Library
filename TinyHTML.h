@@ -46,6 +46,8 @@ public:
     int AddGridTable(int _rows =2, int _columns =2);             // Elements added afterwards are placed row by row until table is full
     int AddPlaceholder(float _sizeW =0.0f, float _sizeH =0.0f);  // Used to fill areas/table cells on page with empty space
 
+    bool IsDirty(); // Returns state of library and resets isDirty to false
+
     void HandleClient(WiFiServer _web_server);
 
 private:
@@ -62,6 +64,7 @@ private:
     int placeholderCount = 0;
 
     int lastID = 0;            // ID returned by each element add function
+    bool isDirty = false;      // Set true when any data received from client web browser
 
     void SetJoystickXY(int _ID, float _x, float _y);
     void SetSliderValue(int _ID, float _value);

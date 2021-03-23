@@ -109,6 +109,13 @@ int TinyHTML::AddPlaceholder(float _sizeW, float _sizeH){
 }
 
 
+bool TinyHTML::IsDirty(){
+  bool state = isDirty;
+  isDirty = false;
+  return state;
+}
+
+
 void TinyHTML::SetClient(WiFiClient _client){
   client = _client;
 }
@@ -228,6 +235,7 @@ void TinyHTML::HandleClient(WiFiServer _web_server){
               command_found = false;                                                // Reset (may not need to)
               paramterIndex = 0;                                                    // Reset
               paramterCharIndex = 0;                                                // Reset
+              isDirty = true;                                                       // Set true any time a command is confirmed to be sent from client
               switch(commandType){                                                  // Check which element this command came from so data can be stored correctly
                 case 'S':
                   SetJoystickXY(atoi(decodingParameters[0]), atof(decodingParameters[1]), atof(decodingParameters[2]));

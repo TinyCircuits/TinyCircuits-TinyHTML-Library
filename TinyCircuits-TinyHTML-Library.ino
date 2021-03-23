@@ -47,7 +47,7 @@ void setup() {
   HTML.AddHeaderText("Slider 3");               // Add header text to second table slot (top left in this case)
   SLIDER_ID2 = HTML.AddVerticalSlider();        // Add vertical slider to third table slot (bottom left in this case), and store its ID
   SLIDER_ID3 = HTML.AddVerticalSlider();        // Add vertical slider to fourth table slot (bottom right in this case, the table in now full), and store its ID
-  HTML.AddButton("Test Button");                // Add button as the last element of the page and store its ID
+  BUTTON_ID1 = HTML.AddButton("Test Button");   // Add button as the last element of the page and store its ID
 
   Wire.begin();               // Initialize wire library
   WiFi.setPins(8, 2, A3, -1); // Initialize Wifi hardware: SETTING PINS VERY IMPORTANT FOR TINYCIRCUITS WIFI SHIELD
@@ -64,6 +64,35 @@ void setup() {
 
 void loop() {
   HTML.HandleClient(web_server);  // Call every loop so that data sent from web browser to server (Arduino) is stored in library
+
+  if(HTML.IsDirty()){
+    SerialMonitorInterface.print("Joystick ");
+    SerialMonitorInterface.print(JOYSTICK_ID1);
+    SerialMonitorInterface.print(" x,y: ");
+    SerialMonitorInterface.print(HTML.GetJoystickX(JOYSTICK_ID1));
+    SerialMonitorInterface.print(",");
+    SerialMonitorInterface.println(HTML.GetJoystickY(JOYSTICK_ID1));
+
+    SerialMonitorInterface.print("Slider ");
+    SerialMonitorInterface.print(SLIDER_ID1);
+    SerialMonitorInterface.print(": ");
+    SerialMonitorInterface.println(HTML.GetSliderValue(SLIDER_ID1));
+
+    SerialMonitorInterface.print("Slider ");
+    SerialMonitorInterface.print(SLIDER_ID2);
+    SerialMonitorInterface.print(": ");
+    SerialMonitorInterface.println(HTML.GetSliderValue(SLIDER_ID2));
+
+    SerialMonitorInterface.print("Slider ");
+    SerialMonitorInterface.print(SLIDER_ID3);
+    SerialMonitorInterface.print(": ");
+    SerialMonitorInterface.println(HTML.GetSliderValue(SLIDER_ID3));
+
+    SerialMonitorInterface.print("Button ");
+    SerialMonitorInterface.print(BUTTON_ID1);
+    SerialMonitorInterface.print(": ");
+    SerialMonitorInterface.println(HTML.GetButtonState(BUTTON_ID1));
+  }
 }
 
 
