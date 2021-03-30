@@ -31,7 +31,7 @@ public:
     void SetPageBackgroundColor(char* _pageBackgroundColor="#000000");
     int AddHeaderText(char* _text ="TEST TEXT", char* _fontColor ="#cccccc", char* _font ="Arial", int _headerLevel =2, bool _underline =true);
 
-    int AddValueDisplay(float _defaultValue, char* _font ="Arial", char* _fontColor ="#ffffff");
+    int AddValueDisplay(float _defaultValue =2000, char* _font ="Arial", char* _fontColor ="#ffffff");
     void SetValueDisplay(int _ID, float _currentValue);
     
     int AddJoystick(float _sizePercentage =85, float _joystickSizePercentage =35, char* _backgroundColor ="#333333", char* _outlineColor ="#ffffff", char* _joystickColor ="#2fa9e1");
