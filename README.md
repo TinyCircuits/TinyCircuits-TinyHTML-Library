@@ -12,6 +12,7 @@ The TinyCircuits-TinyHTML-Library.ino file is a ready to upload example and show
 * Vertical slider
 * Text
 * Grid table
+* Display value
 
 In the example .ino file edit the ssid and wifi_password, upload sketch to processor board, open the serial monitor, and then enter the IP displayed in the serial monitor in a web browser address bar. Ensure the WiFi TinyShield is connected to the processor board. Resize browser window as needed to see more elements at a time.
 
