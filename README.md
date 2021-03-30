@@ -26,6 +26,8 @@ The library provides the following functions for creating and organizing element
 * int AddButton(char* _text, float _sizePercentage, float _fontSize, char* _buttonColor, char* _textColor, char* _outlineColor, char* _toggledColor)
 * int AddGridTable(int _rows, int _columns)
 * int AddPlaceholder(float _sizeW, float _sizeH)
+* int AddValueDisplay(float _defaultValue, char* _font ="Arial", char* _fontColor ="#ffffff")
+* int void SetValueDisplay(int _ID, float _currentValue)
 * bool IsDirty()
 * float GetJoystickX(int _ID)
 * float GetJoystickY(int _ID)

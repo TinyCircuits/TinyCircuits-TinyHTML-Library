@@ -13,8 +13,8 @@ TinyHetergeneousNode::TinyHetergeneousNode(TinyHTMLJoystick *_joystickData, int 
 }
 
 
-TinyHetergeneousNode::TinyHetergeneousNode(TinyHTMLSensorDisplay *_sensorDisplayData, int _ID){
-  sensorDisplayData = _sensorDisplayData;
+TinyHetergeneousNode::TinyHetergeneousNode(TinyHTMLValueDisplay *_valueDisplayData, int _ID){
+  valueDisplayData = _valueDisplayData;
   type = 1;
   ID = _ID;
 }
@@ -86,10 +86,14 @@ void TinyHetergeneousNode::SendNodeCSSorHTMLorJS(WiFiClient &_client, int _css_h
         joystickData->SendJoystickHTMLToClient(_client);
       }
     break;
-    case 1:   // Send sensor display one-line FULL HTML
-            
+    case 1:
+      if(_css_html_js_flag == 2){
+        
+      }else if(_css_html_js_flag == 1){
+        valueDisplayData->SendValueDisplayHTMLToClient(_client);
+      }
     break;
-    case 2:   // Send grid table one-line START HTML (see if-statement at end of function for END HTML exception)
+    case 2:
       if(_css_html_js_flag == 2){
         
       }else if(_css_html_js_flag == 1){

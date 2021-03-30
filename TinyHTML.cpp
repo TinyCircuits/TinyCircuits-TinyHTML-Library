@@ -23,6 +23,26 @@ int TinyHTML::AddHeaderText(char* _text, char* _fontColor, char* _font, int _hea
 }
 
 
+int TinyHTML::AddValueDisplay(float _defaultValue, char* _font, char* _fontColor){
+  hierarchyList.add(new TinyHetergeneousNode(new TinyHTMLValueDisplay(lastID, _defaultValue, _font, _fontColor, valueDisplayCount), lastID));
+  valueDisplayCount++;
+  return lastID++;
+}
+
+void TinyHTML::SetValueDisplay(int _ID, float _currentValue){
+  hierarchyList.GetNodeByIDFromList(_ID)->valueDisplayData->SetCurrentValue(_currentValue);
+}
+
+
+void TinyHTML::SendAllDisplayValuesToClient(){
+  for(int i = 0; i < hierarchyList.listSize; i++){
+    if(hierarchyList.GetNodeByIDFromList(i)->type == 1){
+      hierarchyList.GetNodeByIDFromList(i)->valueDisplayData->SendValueToClient(client);
+    }
+  }
+}
+
+
 int TinyHTML::AddJoystick(float _sizePercentage, float _joystickSizePercentage, char* _backgroundColor, char* _outlineColor, char* _joystickColor){
   hierarchyList.add(new TinyHetergeneousNode(new TinyHTMLJoystick(lastID, _sizePercentage, _joystickSizePercentage, _backgroundColor, _outlineColor, _joystickColor, joystickCount), lastID));
   joystickCount++;
@@ -70,11 +90,6 @@ void TinyHTML::SetSliderValue(int _ID, float _value){
 }
 
 
-void TinyHTML::AddSensorDisplay(char* _displayName, float _fontSizePercentage, char* _backgroundColor, char _foregroundColor){
-  
-}
-
-
 int TinyHTML::AddButton(char* _text, float _sizePercentage, float _fontSize, char* _buttonColor, char* _textColor, char* _outlineColor, char* _toggledColor){
   hierarchyList.add(new TinyHetergeneousNode(new TinyHTMLButton(lastID, _text, _sizePercentage, _fontSize, _buttonColor, _textColor, _outlineColor, _toggledColor, buttonCount), lastID));
   buttonCount++;
@@ -116,6 +131,11 @@ bool TinyHTML::IsDirty(){
 }
 
 
+void TinyHTML::SetDisplayPollRate(float _seconds){
+  displayPollRate = 1000.0f * _seconds;
+}
+
+
 void TinyHTML::SetClient(WiFiClient _client){
   client = _client;
 }
@@ -147,11 +167,6 @@ void TinyHTML::SendAllContentToClient(){
   client.println("height: 0;");
   client.println("width: 100%;");
   client.println("}");
-
-
-  
-  
-
 
   hierarchyList.TraverseListAndSendCSS(client);
   client.println("</style>");
@@ -191,14 +206,32 @@ void TinyHTML::SendAllContentToClient(){
   client.println("          POSTArduino(packed_commands);");
   client.println("        }");
   client.println("      }");
+  
   client.println("      window.setInterval(function(){");
   client.println("        pollDataForServer();");
   client.println("      }, 1000/POLLING_RATE);");
+
+  client.println("      function fetchDisplayValues(){");
+  client.println("        console.log(\"Fetching Display Value Batch...\");");
+  client.println("        POSTArduino(\"I[0,0]$\");");
+  client.println("        request.onreadystatechange = function(){");
+  client.println("          if(request.readyState == 4 && request.status == 200){");
+  client.println("            if(request.responseText != null){");
+  client.println("              var displayValuesAndIDS = request.responseText.split(\"\\n\");");
+  client.println("              for(var i=0; i < displayValuesAndIDS.length-1; i+=2){");
+  client.println("                document.getElementById(parseInt(displayValuesAndIDS[i], 10)).value = parseFloat(displayValuesAndIDS[i+1]);");
+  client.println("              }");
+  client.println("            }");
+  client.println("          }");
+  client.println("        }");
+  client.println("      }");
+  
+  client.println("      window.setInterval(function(){");
+  client.println("        fetchDisplayValues();");
+  client.print("      }, "); client.print(displayPollRate); client.println(");");
   
   hierarchyList.TraverseListAndSendJS(client);  // Send the rest of the node JS to client web broswer
   client.println("</script>");
-
-  
   client.println("</html>");
 }
 
@@ -245,6 +278,12 @@ void TinyHTML::HandleClient(WiFiServer _web_server){
                 case 'B':
                   SetButtonState(atoi(decodingParameters[0]), atoi(decodingParameters[1]));
                 break;
+                case 'I':   // Client is asking for display value element data, traverse list and find these elements and send dirty ones
+                  SendAllDisplayValuesToClient();
+                break;
+                default:
+                  
+                break;
               }
           }else if(current_char != '['){                                            // By this point, current_char is not $, ], or now [ so decode paramters
             if(current_char != ','){                                                // if the paramter char is not a comma to seperate paramters, move on to storing for later conversion
@@ -268,7 +307,6 @@ void TinyHTML::HandleClient(WiFiServer _web_server){
         client.println("Content-Type: text/html");
         client.println("Connection: keep-alive"); // https://developer.mozilla.org/en-US/docs/Web/HTTP/Connection_management_in_HTTP_1.x
         client.println();
-
         // If no command was found at start of GET request, must mean new client, serve webpage to it
         if(!command_found){
           SendAllContentToClient();

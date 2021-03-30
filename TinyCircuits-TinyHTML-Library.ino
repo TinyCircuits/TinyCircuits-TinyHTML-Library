@@ -31,23 +31,27 @@ int SLIDER_ID1;
 int SLIDER_ID2;
 int SLIDER_ID3;
 int BUTTON_ID1;
+int DISPLAY_VALUE_ID1;
 
+float v = 0.0f;
 
 void setup() {
   SerialMonitorInterface.begin(9600); // Initialize serial
   while(!SerialMonitorInterface){}    // Wait until serial monitor is opened before doing anything
 
-  HTML.SetPageBackgroundColor("#000000");       // Set the page background to black
-  HTML.AddHeaderText("TinyHTML Feature Demo");  // Add some header text
-  JOYSTICK_ID1 = HTML.AddJoystick(90);          // Add a joystick element that takes up 90% of the space while keeping aspect ratio constant, and store the ID
-  HTML.AddHeaderText("Slider 1");               // Add header text for slider
-  SLIDER_ID1 = HTML.AddHorizontalSlider();      // Add a horozontial slider and store the ID (by default, sliders range from -1 to 1 in steps of 0.1)
-  HTML.AddGridTable(2, 2);                      // Start a grid table that has two rows and columns
-  HTML.AddHeaderText("Slider 2");               // Add header text to first table slot (top right)                           
-  HTML.AddHeaderText("Slider 3");               // Add header text to second table slot (top left in this case)
-  SLIDER_ID2 = HTML.AddVerticalSlider();        // Add vertical slider to third table slot (bottom left in this case), and store its ID
-  SLIDER_ID3 = HTML.AddVerticalSlider();        // Add vertical slider to fourth table slot (bottom right in this case, the table in now full), and store its ID
-  BUTTON_ID1 = HTML.AddButton("Test Button");   // Add button as the last element of the page and store its ID
+  HTML.SetPageBackgroundColor("#000000");           // Set the page background to black
+  HTML.AddHeaderText("TinyHTML Feature Demo");      // Add some header text
+  JOYSTICK_ID1 = HTML.AddJoystick(90);              // Add a joystick element that takes up 90% of the space while keeping aspect ratio constant, and store the ID
+  HTML.AddHeaderText("Slider 1");                   // Add header text for slider
+  SLIDER_ID1 = HTML.AddHorizontalSlider();          // Add a horozontial slider and store the ID (by default, sliders range from -1 to 1 in steps of 0.1)
+  HTML.AddGridTable(2, 2);                          // Start a grid table that has two rows and columns
+  HTML.AddHeaderText("Slider 2");                   // Add header text to first table slot (top right)                           
+  HTML.AddHeaderText("Slider 3");                   // Add header text to second table slot (top left in this case)
+  SLIDER_ID2 = HTML.AddVerticalSlider();            // Add vertical slider to third table slot (bottom left in this case), and store its ID
+  SLIDER_ID3 = HTML.AddVerticalSlider();            // Add vertical slider to fourth table slot (bottom right in this case, the table in now full), and store its ID
+  BUTTON_ID1 = HTML.AddButton("Test Button");       // Add button as the last element of the page and store its ID
+  HTML.AddHeaderText("Increasing float:");          // Add a header to tell user that below value increases
+  DISPLAY_VALUE_ID1 = HTML.AddValueDisplay(0.01f);  // Add display value element to show a float increase every 2 seconds
 
   Wire.begin();               // Initialize wire library
   WiFi.setPins(8, 2, A3, -1); // Initialize Wifi hardware: SETTING PINS VERY IMPORTANT FOR TINYCIRCUITS WIFI SHIELD
@@ -64,7 +68,11 @@ void setup() {
 
 void loop() {
   HTML.HandleClient(web_server);  // Call every loop so that data sent from web browser to server (Arduino) is stored in library
+  
+  v = v + 0.1f;
+  HTML.SetValueDisplay(DISPLAY_VALUE_ID1, v); // Send float to display value element on web broswer client (could be used for sensor data)
 
+  // Only display information in serial monitor if a command has been received from the web broswer (i.e. an element was interacted with)
   if(HTML.IsDirty()){
     SerialMonitorInterface.print("Joystick ");
     SerialMonitorInterface.print(JOYSTICK_ID1);

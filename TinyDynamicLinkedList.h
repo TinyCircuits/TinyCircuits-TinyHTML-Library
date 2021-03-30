@@ -15,6 +15,7 @@ public:
   void TraverseListAndSendHTML(WiFiClient &_client);   // Goes through the list and sends HTML according to hierarchy
   void TraverseListAndSendCSS(WiFiClient &_client);    // Goes through the list and sends CSS according to hierarchy
   TinyHetergeneousNode *GetNodeByIDFromList(int _ID);  // All elements have an ID member, this checks list so far and returns true if finds matching ID
+  int listSize;                                        // Size of list update after add() & remove() (includes number of child nodes)
 private:
 
   void UpdateCachedNodeRefs();              // Resizes and stores addresses in 1D linear array cachedNodeRefs for later quick reference use
@@ -22,7 +23,6 @@ private:
   TinyHetergeneousNode *rootNode;           // The node that starts the main list
   TinyHetergeneousNode *lastNode;           // The last node that was inserted by add()
   TinyHetergeneousNode *lastNodeGot;        // Helps "get" method, by saving last position
-  int listSize;                             // Size of list update after add() & remove() (includes number of child nodes)
   TinyHetergeneousNode ***cachedNodeRefs;   // Linear array of node addresses where indices correspond to generated node IDs (refreashed everytime a node is added)
 };
 

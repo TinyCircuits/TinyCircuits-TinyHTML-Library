@@ -5,7 +5,7 @@
 #include "TinyDynamicLinkedList.h"
 #include "TinyHTMLJoystick.h"
 #include "TinyHTMLSlider.h"
-#include "TinyHTMLSensorDisplay.h"
+#include "TinyHTMLValueDisplay.h"
 #include "TinyHetergeneousNode.h"
 
 #define JOYSTICK_ELEMENT_ID 0
@@ -30,6 +30,9 @@ public:
     TinyHTML(char* _pageTitle, int _JSPollingRate, int _commandBufferMaxSize);
     void SetPageBackgroundColor(char* _pageBackgroundColor="#000000");
     int AddHeaderText(char* _text ="TEST TEXT", char* _fontColor ="#cccccc", char* _font ="Arial", int _headerLevel =2, bool _underline =true);
+
+    int AddValueDisplay(float _defaultValue, char* _font ="Arial", char* _fontColor ="#ffffff");
+    void SetValueDisplay(int _ID, float _currentValue);
     
     int AddJoystick(float _sizePercentage =85, float _joystickSizePercentage =35, char* _backgroundColor ="#333333", char* _outlineColor ="#ffffff", char* _joystickColor ="#2fa9e1");
     float GetJoystickX(int _ID);
@@ -39,7 +42,6 @@ public:
     int AddVerticalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, char* _backgroundColor ="#333333", char* _outlineColor ="#ffffff", char* _sliderHandleColor ="#2fa9e1"); // CSS styling needs tweaking
     float GetSliderValue(int _ID);
     
-    void AddSensorDisplay(char* _displayName, float _fontSizePercentage, char* _backgroundColor, char _foregroundColor);
     int AddButton(char* _text ="TEST", float _sizePercentage =25, float _fontSize =4.5, char* _buttonColor ="#2fa9e1", char* _textColor ="#ffffff", char* _outlineColor ="#ffffff", char* _toggledColor ="#eb7a34");
     bool GetButtonState(int _ID);
     
@@ -47,6 +49,8 @@ public:
     int AddPlaceholder(float _sizeW =0.0f, float _sizeH =0.0f);  // Used to fill areas/table cells on page with empty space
 
     bool IsDirty(); // Returns state of library and resets isDirty to false
+
+    void SetDisplayPollRate(float _seconds);
 
     void HandleClient(WiFiServer _web_server);
 
@@ -62,13 +66,18 @@ private:
     int sliderCount = 0;
     int buttonCount = 0;
     int placeholderCount = 0;
+    int valueDisplayCount = 0;
 
-    int lastID = 0;            // ID returned by each element add function
-    bool isDirty = false;      // Set true when any data received from client web browser
+    float displayPollRate = 2000;   // Number of miliseconds between client asking for display information
+
+    int lastID = 0;                 // ID returned by each element add function
+    bool isDirty = false;           // Set true when any data received from client web browser
 
     void SetJoystickXY(int _ID, float _x, float _y);
     void SetSliderValue(int _ID, float _value);
     void SetButtonState(int _ID, bool _state);
+
+    void SendAllDisplayValuesToClient();
 
     void SetClient(WiFiClient _client);
     void SendAllContentToClient();

@@ -2,7 +2,7 @@
 #define TINYHETERGENEOUSNODE_H
 
 #include "TinyHTMLJoystick.h"
-#include "TinyHTMLSensorDisplay.h"
+#include "TinyHTMLValueDisplay.h"
 #include "TinyHTMLGridTable.h"
 #include "TinyHTMLHeaderText.h"
 #include "TinyHTMLSlider.h"
@@ -13,7 +13,7 @@ class TinyHetergeneousNode{     // A node in a list that can be one of several o
 public:
   TinyHetergeneousNode();
   TinyHetergeneousNode(TinyHTMLJoystick *_joystickData, int _ID);
-  TinyHetergeneousNode(TinyHTMLSensorDisplay *_sensorDisplayData, int _ID);
+  TinyHetergeneousNode(TinyHTMLValueDisplay *_valueDisplayData, int _ID);
   TinyHetergeneousNode(TinyHTMLGridTable *_gridData, int _ID);
   TinyHetergeneousNode(TinyHTMLHeaderText *_headerTextData, int _ID);
   TinyHetergeneousNode(TinyHTMLSlider *_sliderData, int _ID);
@@ -22,7 +22,7 @@ public:
 
   union{                        // Use one location in memory only (although union chooses the largest space)
     TinyHTMLJoystick* joystickData;
-    TinyHTMLSensorDisplay* sensorDisplayData;
+    TinyHTMLValueDisplay* valueDisplayData;
     TinyHTMLGridTable* gridData;
     TinyHTMLHeaderText* headerTextData;
     TinyHTMLSlider* sliderData;
