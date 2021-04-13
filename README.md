@@ -11,6 +11,8 @@ The [WiFi101](https://www.arduino.cc/en/Reference/WiFi101) Arduino library is ne
 The TinyCircuits-TinyHTML-Library.ino file is a ready to upload example and shows off the following features:
 * Joystick
 * Button
+* Image
+* Line break
 * Horizontal slider
 * Vertical slider
 * Text
@@ -43,6 +45,13 @@ The library provides the following functions for creating and organizing element
         - _font [string: any text that names a standard HTML font family]
         - _headerLevel [int: HTML header level from 1 to 3, returns -1 if invalid level]
         - _underline [bool: passing true underlines the text]
+
+
+* ```AddLineBreak(float _VWthickness, char* _lineColor)```
+    - Adds a horizontal line break to the page
+    - Parameters:
+        - _VWthickness [float: how thick the line is in terms of viewport widths]
+        - _lineColor [string: color of the line, HTML #000000 format]
 
 
 * ```int AddJoystick(float _sizePercentage, float _joystickSizePercentage, char* _backgroundColor, char* _outlineColor, char* _joystickColor)```
@@ -108,6 +117,23 @@ The library provides the following functions for creating and organizing element
         - _sizeW [float: width of the empty space]
         - _sizeH [float: height of the empty space]
 
+
+* ```int AddImage(char* _src, int _imageScale, bool _srcType)```
+    - Adds an image from a URL or base64 encoded src (latter case uses more memory)
+    - Parameters:
+        - _src [string: source of the image, URL or encoded base64 image string]
+        - _imageScale [float: the width of the image in percentage of page width to fill, height scales automatically]
+        - _srcType [bool: pass 'true' if image from URL or pass 'false' if src is base64 encoded string]
+
+
+* ```int AddCustom(char* _CSSContent, char* _HTMLContent, char* _JSContent)```
+    - Provides ability to add custom CSS, HTML, and JavaScript to page. If adding custom JavaScript to send data to Arduino, need to add an identifier/commandType and catch it inside TinyHTML.cpp HandleClient() after sending the data with a commandQueue.push() in JS (see pre-built elements like TinyHTMLButton.cpp SendButtonJSToClient())
+    - Parameters:
+        - _CSSContent [string: custom CSS styling that gets added to page and is able to be used in custom HTML]
+        - _HTMLContent [string: custom HTML that gets added to page and can be interacted with through custom JavaScript and styled with custom CSS]
+        - _JSContent [string: custom JavaScript that gets added to the page and can interact with custom HTML]
+
+
 * ```int AddValueDisplay(float _defaultValue, char* _font, char* _fontColor)```
     - Adds number element that displays a value sent from the Arduino (server)
     - Parameters:
@@ -124,7 +150,7 @@ The library provides the following functions for creating and organizing element
 
 
 * ```bool IsDirty()```
-    - Returns true if any value in the library has changed, including value displays
+    - Returns true if any value in the library has changed, including value displays (following calls will return false until a value in the library changes)
 
 
 * ```float GetJoystickX(int _ID)```

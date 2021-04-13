@@ -55,6 +55,27 @@ TinyHetergeneousNode::TinyHetergeneousNode(TinyHTMLPlaceholder *_placeholderData
 }
 
 
+TinyHetergeneousNode::TinyHetergeneousNode(TinyHTMLLineBreak* _lineBreakData, int _ID){
+  lineBreakData = _lineBreakData;
+  type = 7;
+  ID = _ID;
+}
+
+
+TinyHetergeneousNode::TinyHetergeneousNode(TinyHTMLImg *_imgData, int _ID){
+  imgData = _imgData;
+  type = 8;
+  ID = _ID;
+}
+
+
+TinyHetergeneousNode::TinyHetergeneousNode(TinyHTMLCustom *_customData, int _ID){
+  customData = _customData;
+  type = 9;
+  ID = _ID;
+}
+
+
 TinyHetergeneousNode* TinyHetergeneousNode::FindNearestNeededLinkNode(){
   if(parent != NULL && parent->type == 2){            // If parent is a table, check that there is room for a child, otherwise keep checking until another table or NULL (NULL means back at main branch)
     if(parent->gridData->currentChildCount < parent->gridData->maxChildCount){
@@ -132,6 +153,29 @@ void TinyHetergeneousNode::SendNodeCSSorHTMLorJS(WiFiClient &_client, int _css_h
         placeholderData->SendPlaceholderHTMLToClient(_client);
       }else if(_css_html_js_flag == 0){
         placeholderData->SendPlaceholderCSSToClient(_client);
+      }
+    break;
+    case 7:
+      if(_css_html_js_flag == 1){
+        lineBreakData->SendLineBreakHTMLToClient(_client);
+      }
+    break;
+    case 8:
+      if(_css_html_js_flag == 2){
+        imgData->SendImgJSToClient(_client);
+      }else if(_css_html_js_flag == 1){
+        imgData->SendImgHTMLToClient(_client);
+      }else if(_css_html_js_flag == 0){
+        imgData->SendImgCSSToClient(_client);
+      }
+    break;
+    case 9:
+      if(_css_html_js_flag == 2){
+        customData->SendCustomJSToClient(_client);
+      }else if(_css_html_js_flag == 1){
+        customData->SendCustomHTMLToClient(_client);
+      }else if(_css_html_js_flag == 0){
+        customData->SendCustomCSSToClient(_client);
       }
     break;
   }

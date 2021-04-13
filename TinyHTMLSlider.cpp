@@ -1,6 +1,6 @@
 #include "TinyHTMLSLider.h"
 
-TinyHTMLSlider::TinyHTMLSlider(int _ID, float _rangeMin, float _rangeMax, float _stepSize, bool _horoORvert, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, char* _backgroundColor, char* _outlineColor, char* _sliderHandleColor, int _sliderElementIndex){
+TinyHTMLSlider::TinyHTMLSlider(int _ID, float _rangeMin, float _rangeMax, float _stepSize, bool _horoORvert, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, char* _backgroundColor, char* _outlineColor, char* _sliderHandleColor, bool _showValue, int _vwFontSize, int _sliderElementIndex){
   ID = _ID;
   rangeMin = _rangeMin;
   rangeMax = _rangeMax;
@@ -13,6 +13,8 @@ TinyHTMLSlider::TinyHTMLSlider(int _ID, float _rangeMin, float _rangeMax, float 
   outlineColor = _outlineColor;
   sliderHandleColor = _sliderHandleColor;
   sliderElementIndex = _sliderElementIndex;
+  showValue = _showValue;
+  vwFontSize = _vwFontSize;
 }
 
 
@@ -44,6 +46,11 @@ void TinyHTMLSlider::SendSliderJSToClient(WiFiClient &_client){
     _client.println("       slider.addEventListener('input', handleSliderMove);");
     _client.println("       }");
     _client.println("     }");
+
+    _client.println("function UpdateSliderOutput(sliderID, value){");
+    _client.println(" sliderOutputElement = document.getElementById(sliderID.toString() + \"B\");");
+    _client.println(" sliderOutputElement.value = value;");
+    _client.println("}");
   }
 
   _client.print("slider");
@@ -55,6 +62,7 @@ void TinyHTMLSlider::SendSliderJSToClient(WiFiClient &_client){
 
 
 void TinyHTMLSlider::SendSliderHTMLToClient(WiFiClient &_client){
+  _client.print("<div>");
   if(!horoORvert){
     _client.print("<div class=rotation-wrapper-outer>");
     _client.print("<div class=rotation-wrapper-inner>");
@@ -79,11 +87,26 @@ void TinyHTMLSlider::SendSliderHTMLToClient(WiFiClient &_client){
   _client.print(" slider_moz_unique");
   _client.print(ID);
   _client.print("\"");
-  _client.print(">");
-  _client.print("</div>");
+  if(showValue){
+    _client.print(" oninput=\"UpdateSliderOutput(this.id, this.value)\"");
+  }
+  _client.print("></div>");
+  
   if(!horoORvert){
     _client.print("</div>");
     _client.print("</div>");
+  }
+
+  if(showValue){
+    _client.print("<center><output id=");
+    _client.print(ID);
+    _client.print("B class=");
+    _client.print("slider_output_unique");
+    _client.print(ID);
+    _client.print(">");
+    _client.print(abs(abs(rangeMax)-abs(rangeMin))/2);
+    _client.println("</output>");
+    _client.print("</div></center>");
   }
 }
 
@@ -159,5 +182,13 @@ void TinyHTMLSlider::SendSliderCSSToClient(WiFiClient &_client){
   _client.print(" width: ");
   _client.print(sliderVWSize);
   _client.println("vw;");
+  _client.println("}");
+
+  _client.print(".slider_output_unique");
+  _client.print(ID);
+  _client.println("{");
+  _client.println("color: white;");
+  _client.println("position: relative;");
+  _client.println("font-size:");
   _client.println("}");
 }

@@ -8,6 +8,9 @@
 #include "TinyHTMLSlider.h"
 #include "TinyHTMLButton.h"
 #include "TinyHTMLPlaceholder.h"
+#include "TinyHTMLLineBreak.h"
+#include "TinyHTMLImg.h"
+#include "TinyHTMLCustom.h"
 
 class TinyHetergeneousNode{     // A node in a list that can be one of several object types
 public:
@@ -19,8 +22,11 @@ public:
   TinyHetergeneousNode(TinyHTMLSlider *_sliderData, int _ID);
   TinyHetergeneousNode(TinyHTMLButton *_buttonData, int _ID);
   TinyHetergeneousNode(TinyHTMLPlaceholder *_placeholderData, int _ID);
+  TinyHetergeneousNode(TinyHTMLLineBreak *_lineBreakData, int _ID);
+  TinyHetergeneousNode(TinyHTMLImg *_imgData, int _ID);
+  TinyHetergeneousNode(TinyHTMLCustom *_customData, int _ID);
 
-  union{                        // Use one location in memory only (although union chooses the largest space)
+  union{                        // Use one location in memory only (although union chooses the largest amount of memory space)
     TinyHTMLJoystick* joystickData;
     TinyHTMLValueDisplay* valueDisplayData;
     TinyHTMLGridTable* gridData;
@@ -28,6 +34,9 @@ public:
     TinyHTMLSlider* sliderData;
     TinyHTMLButton *buttonData;
     TinyHTMLPlaceholder *placeholderData;
+    TinyHTMLLineBreak *lineBreakData;
+    TinyHTMLImg *imgData;
+    TinyHTMLCustom *customData;
   };
   
   TinyHetergeneousNode *next;   // The next node containing a T data member (ex. int data)

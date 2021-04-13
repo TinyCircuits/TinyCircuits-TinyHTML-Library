@@ -13,10 +13,10 @@
 
 /*********************** EDIT THIS SECTION TO MATCH YOUR INFO *************************/
 // WiFi network information
-char ssid[] = "ExampleSSID";                  // Your network SSID (name)
-char wifi_password[] = "VerySecurePassword";  // Your network password
-IPAddress shield_ip;                          // Set by connect to WiFi function
-WiFiServer web_server(80);                    // Hosting web server on port 80
+char ssid[] = "ExampleSSID1";           // Your network SSID (name)
+char wifi_password[] = "SecurePassword";    // Your network password
+IPAddress shield_ip;                    // Set by connect to WiFi function
+WiFiServer web_server(80);              // Hosting web server on port 80
 
 
 // Set the page title
@@ -41,9 +41,11 @@ void setup() {
 
   HTML.SetPageBackgroundColor("#000000");           // Set the page background to black
   HTML.AddHeaderText("TinyHTML Feature Demo");      // Add some header text
+  HTML.AddImage();                                  // Add an image with default URL path and dimensions
   JOYSTICK_ID1 = HTML.AddJoystick(90);              // Add a joystick element that takes up 90% of the space while keeping aspect ratio constant, and store the ID
   HTML.AddHeaderText("Slider 1");                   // Add header text for slider
   SLIDER_ID1 = HTML.AddHorizontalSlider();          // Add a horozontial slider and store the ID (by default, sliders range from -1 to 1 in steps of 0.1)
+  HTML.AddLineBreak();                              // Add a line break after the first slider on the page
   HTML.AddGridTable(2, 2);                          // Start a grid table that has two rows and columns
   HTML.AddHeaderText("Slider 2");                   // Add header text to first table slot (top right)                           
   HTML.AddHeaderText("Slider 3");                   // Add header text to second table slot (top left in this case)

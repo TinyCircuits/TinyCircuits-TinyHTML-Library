@@ -14,12 +14,19 @@ void TinyHTML::SetPageBackgroundColor(char* _pageBackgroundColor){
 
 
 int TinyHTML::AddHeaderText(char* _text, char* _fontColor, char* _font, int _headerLevel, bool _underline){
-  if(_headerLevel <0 && _headerLevel > 3){
+  if(_headerLevel < 1 || _headerLevel > 6){
     return -1;  // Failed because of passed parameter, return error -1
   }
   hierarchyList.add(new TinyHetergeneousNode(new TinyHTMLHeaderText(lastID, _text, _fontColor, _font, _headerLevel, _underline, headerTextCount), lastID));
   headerTextCount++;
   return lastID++;
+}
+
+
+int TinyHTML::AddLineBreak(float _VWthickness, char* _lineColor){
+  hierarchyList.add(new TinyHetergeneousNode(new TinyHTMLLineBreak(lastID, _VWthickness, _lineColor, lineBreakCount), lastID));
+  lineBreakCount++;
+  return lastID++;  
 }
 
 
@@ -66,14 +73,14 @@ void TinyHTML::SetJoystickXY(int _ID, float _x, float _y){
 }
 
 
-int TinyHTML::AddHorizontalSlider(float _rangeMin, float _rangeMax, float _stepSize, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, char* _backgroundColor, char* _outlineColor, char* _sliderHandleColor){
-  hierarchyList.add(new TinyHetergeneousNode(new TinyHTMLSlider(lastID, _rangeMin, _rangeMax, _stepSize, true, _widthPercentage, _lengthPercentage, _sliderVWSize, _backgroundColor, _outlineColor, _sliderHandleColor, sliderCount), lastID));
+int TinyHTML::AddHorizontalSlider(float _rangeMin, float _rangeMax, float _stepSize, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, char* _backgroundColor, char* _outlineColor, char* _sliderHandleColor, bool _showValue, int _vwFontSize){
+  hierarchyList.add(new TinyHetergeneousNode(new TinyHTMLSlider(lastID, _rangeMin, _rangeMax, _stepSize, true, _widthPercentage, _lengthPercentage, _sliderVWSize, _backgroundColor, _outlineColor, _sliderHandleColor, _showValue, _vwFontSize, sliderCount), lastID));
   sliderCount++;
   return lastID++;
 }
 
-int TinyHTML::AddVerticalSlider(float _rangeMin, float _rangeMax, float _stepSize, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, char* _backgroundColor, char* _outlineColor, char* _sliderHandleColor){
-  hierarchyList.add(new TinyHetergeneousNode(new TinyHTMLSlider(lastID, _rangeMin, _rangeMax, _stepSize, false, _widthPercentage, _lengthPercentage, _sliderVWSize, _backgroundColor, _outlineColor, _sliderHandleColor, sliderCount), lastID));
+int TinyHTML::AddVerticalSlider(float _rangeMin, float _rangeMax, float _stepSize, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, char* _backgroundColor, char* _outlineColor, char* _sliderHandleColor, bool _showValue, int _vwFontSize){
+  hierarchyList.add(new TinyHetergeneousNode(new TinyHTMLSlider(lastID, _rangeMin, _rangeMax, _stepSize, false, _widthPercentage, _lengthPercentage, _sliderVWSize, _backgroundColor, _outlineColor, _sliderHandleColor, _showValue, _vwFontSize, sliderCount), lastID));
   sliderCount++;
   return lastID++;
 }
@@ -120,7 +127,21 @@ int TinyHTML::AddGridTable(int _rows, int _columns){
 int TinyHTML::AddPlaceholder(float _sizeW, float _sizeH){
   hierarchyList.add(new TinyHetergeneousNode(new TinyHTMLPlaceholder(lastID, _sizeW, _sizeH, placeholderCount), lastID));
   placeholderCount++;
-  return lastID++; 
+  return lastID++;
+}
+
+
+int TinyHTML::AddImage(char* _src, float _imageScale, bool _srcType){
+  hierarchyList.add(new TinyHetergeneousNode(new TinyHTMLImg(lastID, _src, _imageScale, _srcType, imgCount), lastID));
+  imgCount++;
+  return lastID++;
+}
+
+
+int TinyHTML::AddCustom(char* _CSSContent, char* _HTMLContent, char* _JSContent){
+  hierarchyList.add(new TinyHetergeneousNode(new TinyHTMLCustom(lastID, _CSSContent, _HTMLContent, _JSContent, customCount), lastID));
+  customCount++;
+  return lastID++;
 }
 
 

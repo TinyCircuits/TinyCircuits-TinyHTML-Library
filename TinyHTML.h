@@ -21,7 +21,7 @@
 // etc and then have a HTML/JavaScript/CSS infused page hosted on a webserver
 // by the Arduino. This is mainly for a small subset of robotics projects
 // and therefore custom HTML or styling is not favoured. There are options
-// to quickly change the theme/color of the elements, or the source code
+// to quickly change the theme/color of the elements, otherwise, the source code
 // can be edited
 
 
@@ -31,6 +31,8 @@ public:
     void SetPageBackgroundColor(char* _pageBackgroundColor="#000000");
     int AddHeaderText(char* _text ="TEST TEXT", char* _fontColor ="#cccccc", char* _font ="Arial", int _headerLevel =2, bool _underline =true);
 
+    int AddLineBreak(float _VWthickness =0.5f, char* _lineColor ="#cccccc");
+
     int AddValueDisplay(float _defaultValue =2000, char* _font ="Arial", char* _fontColor ="#ffffff");
     void SetValueDisplay(int _ID, float _currentValue);
     
@@ -38,8 +40,8 @@ public:
     float GetJoystickX(int _ID);
     float GetJoystickY(int _ID);
     
-    int AddHorizontalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, char* _backgroundColor ="#333333", char* _outlineColor ="#ffffff", char* _sliderHandleColor ="#2fa9e1");
-    int AddVerticalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, char* _backgroundColor ="#333333", char* _outlineColor ="#ffffff", char* _sliderHandleColor ="#2fa9e1"); // CSS styling needs tweaking
+    int AddHorizontalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, char* _backgroundColor ="#333333", char* _outlineColor ="#ffffff", char* _sliderHandleColor ="#2fa9e1", bool _showValue =true, int _vwFontSize =10);
+    int AddVerticalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, char* _backgroundColor ="#333333", char* _outlineColor ="#ffffff", char* _sliderHandleColor ="#2fa9e1", bool _showValue =true, int _vwFontSize =10); // CSS styling needs tweaking
     float GetSliderValue(int _ID);
     
     int AddButton(char* _text ="TEST", float _sizePercentage =25, float _fontSize =4.5, char* _buttonColor ="#2fa9e1", char* _textColor ="#ffffff", char* _outlineColor ="#ffffff", char* _toggledColor ="#eb7a34");
@@ -48,7 +50,10 @@ public:
     int AddGridTable(int _rows =2, int _columns =2);             // Elements added afterwards are placed row by row until table is full
     int AddPlaceholder(float _sizeW =0.0f, float _sizeH =0.0f);  // Used to fill areas/table cells on page with empty space
 
-    bool IsDirty(); // Returns state of library and resets isDirty to false
+    int AddImage(char* _src ="https://cdn.shopify.com/s/files/1/1125/2198/files/TC_tinycircuits_logo_c0d46ca4-da2c-4e81-a88d-6780fae6b443_170x.png?v=1569438547", float _imageScale =50.0f, bool _srcType =true); // true for URL, false for base64 encoded
+
+    int AddCustom(char* _CSSContent ="", char* _HTMLContent ="", char* _JSContent ="");
+    bool IsDirty(); // Returns state of library (returns true after any any element state has changed) and resets to returning false after being called
 
     void SetDisplayPollRate(float _seconds);
 
@@ -67,6 +72,9 @@ private:
     int buttonCount = 0;
     int placeholderCount = 0;
     int valueDisplayCount = 0;
+    int lineBreakCount = 0;
+    int imgCount = 0;
+    int customCount = 0;
 
     float displayPollRate = 2000;   // Number of miliseconds between client asking for display information
 
