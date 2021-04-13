@@ -45,7 +45,7 @@ The library provides the following functions for creating and organizing element
         - _text [string: any text]
         - _fontColor [string: color of text, HTML #000000 format]
         - _font [string: any text that names a standard HTML font family]
-        - _headerLevel [int: HTML header level from 1 to 3, returns -1 if invalid level]
+        - _headerLevel [int: HTML header level from 1 to 6, returns -1 if invalid level]
         - _underline [bool: passing true underlines the text]
 
 
