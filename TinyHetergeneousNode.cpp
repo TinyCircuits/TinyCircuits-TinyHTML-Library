@@ -101,81 +101,101 @@ TinyHetergeneousNode* TinyHetergeneousNode::FindNearestChildlessChildNode(){
 void TinyHetergeneousNode::SendNodeCSSorHTMLorJS(WiFiClient &_client, int _css_html_js_flag){
   switch(type){
     case 0:   // Send joystick data
-      if(_css_html_js_flag == 2){
-        joystickData->SendJoystickJSToClient(_client);
-      }else if(_css_html_js_flag == 1){
-        joystickData->SendJoystickHTMLToClient(_client);
+      if(joystickData){
+        if(_css_html_js_flag == 2){
+          joystickData->SendJoystickJSToClient(_client);
+        }else if(_css_html_js_flag == 1){
+          joystickData->SendJoystickHTMLToClient(_client);
+        }
       }
     break;
     case 1:
-      if(_css_html_js_flag == 2){
-        
-      }else if(_css_html_js_flag == 1){
-        valueDisplayData->SendValueDisplayHTMLToClient(_client);
+      if(valueDisplayData){
+        if(_css_html_js_flag == 2){
+          
+        }else if(_css_html_js_flag == 1){
+          valueDisplayData->SendValueDisplayHTMLToClient(_client);
+        }
       }
     break;
     case 2:
-      if(_css_html_js_flag == 2){
-        
-      }else if(_css_html_js_flag == 1){
-        gridData->SendGridTableHTMLStartToClient(_client);
+      if(gridData){
+        if(_css_html_js_flag == 2){
+          
+        }else if(_css_html_js_flag == 1){
+          gridData->SendGridTableHTMLStartToClient(_client);
+        }
       }
     break;
     case 3:
-      if(_css_html_js_flag == 2){
-        
-      }else if(_css_html_js_flag == 1){
-        headerTextData->SendHeaderTextHTMLToClient(_client);
+      if(headerTextData){
+        if(_css_html_js_flag == 2){
+          
+        }else if(_css_html_js_flag == 1){
+          headerTextData->SendHeaderTextHTMLToClient(_client);
+        }
       }
     break;
     case 4:
-      if(_css_html_js_flag == 2){
-        sliderData->SendSliderJSToClient(_client);
-      }else if(_css_html_js_flag == 1){
-        sliderData->SendSliderHTMLToClient(_client);
-      }else if(_css_html_js_flag == 0){
-        sliderData->SendSliderCSSToClient(_client);
+      if(sliderData){
+        if(_css_html_js_flag == 2){
+          sliderData->SendSliderJSToClient(_client);
+        }else if(_css_html_js_flag == 1){
+          sliderData->SendSliderHTMLToClient(_client);
+        }else if(_css_html_js_flag == 0){
+          sliderData->SendSliderCSSToClient(_client);
+        }
       }
     break;
     case 5:
-      if(_css_html_js_flag == 2){
-        buttonData->SendButtonJSToClient(_client);
-      }else if(_css_html_js_flag == 1){
-        buttonData->SendButtonHTMLToClient(_client);
-      }else if(_css_html_js_flag == 0){
-        buttonData->SendButtonCSSToClient(_client);
+      if(buttonData){
+        if(_css_html_js_flag == 2){
+          buttonData->SendButtonJSToClient(_client);
+        }else if(_css_html_js_flag == 1){
+          buttonData->SendButtonHTMLToClient(_client);
+        }else if(_css_html_js_flag == 0){
+          buttonData->SendButtonCSSToClient(_client);
+        }
       }
     break;
     case 6:
-      if(_css_html_js_flag == 2){
-        placeholderData->SendPlaceholderJSToClient(_client);
-      }else if(_css_html_js_flag == 1){
-        placeholderData->SendPlaceholderHTMLToClient(_client);
-      }else if(_css_html_js_flag == 0){
-        placeholderData->SendPlaceholderCSSToClient(_client);
+      if(placeholderData){
+        if(_css_html_js_flag == 2){
+          placeholderData->SendPlaceholderJSToClient(_client);
+        }else if(_css_html_js_flag == 1){
+          placeholderData->SendPlaceholderHTMLToClient(_client);
+        }else if(_css_html_js_flag == 0){
+          placeholderData->SendPlaceholderCSSToClient(_client);
+        }
       }
     break;
     case 7:
-      if(_css_html_js_flag == 1){
-        lineBreakData->SendLineBreakHTMLToClient(_client);
+      if(lineBreakData){
+        if(_css_html_js_flag == 1){
+          lineBreakData->SendLineBreakHTMLToClient(_client);
+        }
       }
     break;
     case 8:
-      if(_css_html_js_flag == 2){
-        imgData->SendImgJSToClient(_client);
-      }else if(_css_html_js_flag == 1){
-        imgData->SendImgHTMLToClient(_client);
-      }else if(_css_html_js_flag == 0){
-        imgData->SendImgCSSToClient(_client);
+      if(imgData){
+        if(_css_html_js_flag == 2){
+          imgData->SendImgJSToClient(_client);
+        }else if(_css_html_js_flag == 1){
+          imgData->SendImgHTMLToClient(_client);
+        }else if(_css_html_js_flag == 0){
+          imgData->SendImgCSSToClient(_client);
+        }
       }
     break;
     case 9:
-      if(_css_html_js_flag == 2){
-        customData->SendCustomJSToClient(_client);
-      }else if(_css_html_js_flag == 1){
-        customData->SendCustomHTMLToClient(_client);
-      }else if(_css_html_js_flag == 0){
-        customData->SendCustomCSSToClient(_client);
+      if(customData){
+        if(_css_html_js_flag == 2){
+          customData->SendCustomJSToClient(_client);
+        }else if(_css_html_js_flag == 1){
+          customData->SendCustomHTMLToClient(_client);
+        }else if(_css_html_js_flag == 0){
+          customData->SendCustomCSSToClient(_client);
+        }
       }
     break;
   }
@@ -183,17 +203,17 @@ void TinyHetergeneousNode::SendNodeCSSorHTMLorJS(WiFiClient &_client, int _css_h
   // Everytime a node sends its HTML, it could be the last child of a table parent.
   // If this node's parent is a table (type 2) and its child is NULL (this node is childless)
   // then that means table sending HTML should be sent. Only send HTML if not sending JS
-  if(parent->type == 2 && child == NULL && _css_html_js_flag == 1){
+  if(gridData && parent && parent->type == 2 && child == NULL && _css_html_js_flag == 1){
     gridData->SendGridTableHTMLEndToClient(_client);
   }
 
   // Before starting on the next node, make sure the children nodes are taken care of
   // If a child node has a child, handle that first before doing the rest of these children nodes
-  if(child != NULL){
+  if(child){
     child->SendNodeCSSorHTMLorJS(_client, _css_html_js_flag);
   }
 
-  if(next != NULL){
+  if(next){
     next->SendNodeCSSorHTMLorJS(_client, _css_html_js_flag);
   }
 }

@@ -1,18 +1,18 @@
-#ifndef TINYHTML_
-#define TINYHTML_
+#ifndef TINYHTML_H
+#define TINYHTML_H
 
-#include <WiFi101.h>
+#if defined(ARDUINO_ESP32S2_DEV)
+  #include <WiFi.h>    // For connecting to WiFi on ESP32 devices
+#else
+  #include <WiFi101.h>    // For connecting to WiFi on typical Arduino devices
+#endif
+
 #include "TinyDynamicLinkedList.h"
 #include "TinyHTMLJoystick.h"
 #include "TinyHTMLSlider.h"
 #include "TinyHTMLValueDisplay.h"
 #include "TinyHetergeneousNode.h"
 
-#define JOYSTICK_ELEMENT_ID 0
-#define SLIDER_ELEMENT_ID 1
-#define SENSOR_DISPLAY_ELEMENT_ID 2
-#define CUSTOM_DIV_START_ELEMENT_ID 3
-#define CUSTOM_DIV_END_ELEMENT_ID 4
 
 // Builds .html file by sending JavaScript, CSS, and HTML
 // formatting to the client browser line by line.
@@ -57,7 +57,8 @@ public:
 
     void SetDisplayPollRate(float _seconds);
 
-    void HandleClient(WiFiServer _web_server);
+    void HandleClient();
+    void StartPage();
 
 private:
     const char* pageTitle;
@@ -91,7 +92,8 @@ private:
     void SendAllContentToClient();
 
     WiFiClient client;
+    WiFiServer webServer;
     TinyLinkedList hierarchyList;
 };
 
-#endif /* TINYHTML_ */
+#endif /* TINYHTML_H */

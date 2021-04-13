@@ -1,7 +1,7 @@
 #include "TinyHTML.h"
 
 
-TinyHTML::TinyHTML(const char* _pageTitle, int _JSPollingRate, int _commandBufferMaxSize){
+TinyHTML::TinyHTML(const char* _pageTitle, int _JSPollingRate, int _commandBufferMaxSize) : webServer(80){
   pageTitle = _pageTitle;
   JSPollingRate = _JSPollingRate;
   commandBufferMaxSize = _commandBufferMaxSize;
@@ -165,6 +165,7 @@ void TinyHTML::SetClient(WiFiClient _client){
 void TinyHTML::SendAllContentToClient(){
   client.println("<!DOCTYPE html>");
   client.println("<html lang=\"en\">");
+
   client.println("<head>");
   client.print("<title>"); client.print(pageTitle); client.println("</title>");
   client.println("<meta charset=\"utf-8\">");
@@ -257,8 +258,8 @@ void TinyHTML::SendAllContentToClient(){
 }
 
 
-void TinyHTML::HandleClient(WiFiServer _web_server){
-  client = _web_server.available();     // listen for incoming clients, always grab the next available
+void TinyHTML::HandleClient(){
+  client = webServer.available();       // listen for incoming clients, always grab the next available
   
   // check that there is a client (not null)
   if(client){
@@ -339,4 +340,9 @@ void TinyHTML::HandleClient(WiFiServer _web_server){
     delay(1);      // Give client web browser time to receive the data
     client.stop(); // Close the connection to the client since all GET data read and read loop done
   }  
+}
+
+
+void TinyHTML::StartPage(){
+  webServer.begin();
 }

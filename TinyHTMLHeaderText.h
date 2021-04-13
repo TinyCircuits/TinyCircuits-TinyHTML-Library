@@ -1,7 +1,11 @@
 #ifndef TINYHTMLHEADERTEXT_H
 #define TINYHTMLHEADERTEXT_H
 
-#include <WiFi101.h>
+#if defined(ARDUINO_ESP32S2_DEV)
+  #include <WiFi.h>    // For connecting to WiFi on ESP32 devices
+#else
+  #include <WiFi101.h>    // For connecting to WiFi on typical Arduino devices
+#endif
 
 class TinyHTMLHeaderText{
 public:
