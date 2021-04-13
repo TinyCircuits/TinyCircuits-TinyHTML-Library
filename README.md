@@ -186,6 +186,7 @@ The library provides the following functions for creating and organizing element
 * Cannot add elements during runtime without the client (web browser) refreshing the page
 * Cannot force/set the value of an element other than by manipulating the element manually (with touch, cursor, or keyboard)
 * More than one client can load the page at a time but element visuals will not update/be shown on other client web browsers
+* Element states do not resume to their modified positions after reconnection/refreshing the page (might be fixed in the future)
 
 ## Tested web browsers
 * Chrome on Windows Desktop
