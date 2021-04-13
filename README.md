@@ -7,6 +7,8 @@ This library aims to be low-latency in terms of reaction on the Arduino after in
 ## Requirements
 The [WiFi101](https://www.arduino.cc/en/Reference/WiFi101) Arduino library is needed in conjunction with any TinyCircuits processor board ([TinyZero](https://tinycircuits.com/products/tinyzero-processor), [RobotZero](https://tinycircuits.com/products/tinyzero-processor), etc) and the [Wi-Fi TinyShield](https://tinycircuits.com/products/wifi-tinyshield-atwinc1500). This library most likely works with typical Arduino boards, like the UNO, and Wi-Fi hardware that is compatible with the WiFi101 library, although it is untested.
 
+There is some cross-platform code to allow this library to compile for and run on the ESP32 using the WiFi.h library (instead of WiFi101.h). So far this has only been tested on the ESP32S2 Dev Module.
+
 ## Example
 The TinyCircuits-TinyHTML-Library.ino file is a ready to upload example and shows off the following features:
 * Joystick
@@ -188,6 +190,7 @@ The library provides the following functions for creating and organizing element
 ## Tested web browsers
 * Chrome on Windows Desktop
 * Microsoft Edge on Windows Desktop
+* Firefox on Windows Desktop
 * Chrome on iPhone
 * Safari on iPhone
 
