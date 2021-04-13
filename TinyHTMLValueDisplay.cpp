@@ -26,7 +26,7 @@ void TinyHTMLValueDisplay::SendValueDisplayHTMLToClient(WiFiClient &_client){
   _client.print(">");
   _client.print(defaultValue);
   _client.println("</output>");
-  _client.println("<div>");
+  _client.println("</div>");
 }
 
 
