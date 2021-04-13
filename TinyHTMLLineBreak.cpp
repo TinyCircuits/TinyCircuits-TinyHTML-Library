@@ -1,7 +1,7 @@
 #include "TinyHTMLLineBreak.h"
 
 
-TinyHTMLLineBreak::TinyHTMLLineBreak(int _ID, float _VWthickness, char* _lineColor, int _lineBreakElementIndex){
+TinyHTMLLineBreak::TinyHTMLLineBreak(int _ID, float _VWthickness, const char* _lineColor, int _lineBreakElementIndex){
   ID = _ID;
   VWthickness = _VWthickness;
   lineColor = _lineColor;

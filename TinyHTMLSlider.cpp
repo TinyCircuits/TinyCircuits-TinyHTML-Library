@@ -1,6 +1,6 @@
 #include "TinyHTMLSLider.h"
 
-TinyHTMLSlider::TinyHTMLSlider(int _ID, float _rangeMin, float _rangeMax, float _stepSize, bool _horoORvert, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, char* _backgroundColor, char* _outlineColor, char* _sliderHandleColor, bool _showValue, int _vwFontSize, int _sliderElementIndex){
+TinyHTMLSlider::TinyHTMLSlider(int _ID, float _rangeMin, float _rangeMax, float _stepSize, bool _horoORvert, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, const char* _backgroundColor, const char* _outlineColor, const char* _sliderHandleColor, bool _showValue, int _vwFontSize, int _sliderElementIndex){
   ID = _ID;
   rangeMin = _rangeMin;
   rangeMax = _rangeMax;

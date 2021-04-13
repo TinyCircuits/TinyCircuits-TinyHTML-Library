@@ -5,7 +5,7 @@
 
 class TinyHTMLJoystick{
 public:
-  TinyHTMLJoystick(int _ID, float _sizePercentage, float _joystickSizePercentage, char* _backgroundColor, char* _outlineColor, char* _joystickColor, int _joystickElementIndex);
+  TinyHTMLJoystick(int _ID, float _sizePercentage, float _joystickSizePercentage, const char* _backgroundColor, const char* _outlineColor, const char* _joystickColor, int _joystickElementIndex);
   void SendJoystickJSToClient(WiFiClient &_client);
   void SendJoystickHTMLToClient(WiFiClient &_client);
 
@@ -15,9 +15,9 @@ private:
   int ID;
   float sizePercentage;
   float joystickSizePercentage;
-  char* backgroundColor;
-  char* outlineColor;
-  char* joystickColor;
+  const char* backgroundColor;
+  const char* outlineColor;
+  const char* joystickColor;
   int joystickElementIndex;
 };
 

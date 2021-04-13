@@ -1,7 +1,7 @@
 #include "TinyHTMLHeaderText.h"
 
 
-TinyHTMLHeaderText::TinyHTMLHeaderText(int _ID, char* _text, char* _fontColor, char* _font, int _headerLevel, bool _underline, int _headerTextElementIndex){
+TinyHTMLHeaderText::TinyHTMLHeaderText(int _ID, const char* _text, const char* _fontColor, const char* _font, int _headerLevel, bool _underline, int _headerTextElementIndex){
   ID = _ID;
   text = _text;
   fontColor = _fontColor;

@@ -5,7 +5,7 @@
 
 class TinyHTMLSlider{
 public:
-  TinyHTMLSlider(int _ID, float _rangeMin, float _rangeMax, float _stepSize, bool _horoORvert, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, char* _backgroundColor, char* _outlineColor, char* _sliderHandleColor, bool _showValue, int _vwFontSize, int _sliderElementIndex);
+  TinyHTMLSlider(int _ID, float _rangeMin, float _rangeMax, float _stepSize, bool _horoORvert, float _widthPercentage, float _lengthPercentage, float _sliderVWSize, const char* _backgroundColor, const char* _outlineColor, const char* _sliderHandleColor, bool _showValue, int _vwFontSize, int _sliderElementIndex);
   void SendSliderJSToClient(WiFiClient &_client);
   void SendSliderHTMLToClient(WiFiClient &_client);
   void SendSliderCSSToClient(WiFiClient &_client);
@@ -19,9 +19,9 @@ private:
   float widthPercentage;
   float lengthPercentage;
   float sliderVWSize;
-  char* backgroundColor;
-  char* outlineColor;
-  char* sliderHandleColor;
+  const char* backgroundColor;
+  const char* outlineColor;
+  const char* sliderHandleColor;
   int sliderElementIndex;
   bool showValue;
   float vwFontSize;

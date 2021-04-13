@@ -27,32 +27,32 @@
 
 class TinyHTML {
 public:
-    TinyHTML(char* _pageTitle, int _JSPollingRate, int _commandBufferMaxSize);
-    void SetPageBackgroundColor(char* _pageBackgroundColor="#000000");
-    int AddHeaderText(char* _text ="TEST TEXT", char* _fontColor ="#cccccc", char* _font ="Arial", int _headerLevel =2, bool _underline =true);
+    TinyHTML(const char* _pageTitle, int _JSPollingRate, int _commandBufferMaxSize);
+    void SetPageBackgroundColor(const char* _pageBackgroundColor="#000000");
+    int AddHeaderText(const char* _text ="TEST TEXT", const char* _fontColor ="#cccccc", const char* _font ="Arial", int _headerLevel =2, bool _underline =true);
 
-    int AddLineBreak(float _VWthickness =0.5f, char* _lineColor ="#cccccc");
+    int AddLineBreak(float _VWthickness =0.5f, const char* _lineColor ="#cccccc");
 
-    int AddValueDisplay(float _defaultValue =2000, char* _font ="Arial", char* _fontColor ="#ffffff");
+    int AddValueDisplay(float _defaultValue =2000, const char* _font ="Arial", const char* _fontColor ="#ffffff");
     void SetValueDisplay(int _ID, float _currentValue);
     
-    int AddJoystick(float _sizePercentage =85, float _joystickSizePercentage =35, char* _backgroundColor ="#333333", char* _outlineColor ="#ffffff", char* _joystickColor ="#2fa9e1");
+    int AddJoystick(float _sizePercentage =85, float _joystickSizePercentage =35, const char* _backgroundColor ="#333333", const char* _outlineColor ="#ffffff", const char* _joystickColor ="#2fa9e1");
     float GetJoystickX(int _ID);
     float GetJoystickY(int _ID);
     
-    int AddHorizontalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, char* _backgroundColor ="#333333", char* _outlineColor ="#ffffff", char* _sliderHandleColor ="#2fa9e1", bool _showValue =true, int _vwFontSize =10);
-    int AddVerticalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, char* _backgroundColor ="#333333", char* _outlineColor ="#ffffff", char* _sliderHandleColor ="#2fa9e1", bool _showValue =true, int _vwFontSize =10); // CSS styling needs tweaking
+    int AddHorizontalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, const char* _backgroundColor ="#333333", const char* _outlineColor ="#ffffff", const char* _sliderHandleColor ="#2fa9e1", bool _showValue =true, int _vwFontSize =10);
+    int AddVerticalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, const char* _backgroundColor ="#333333", const char* _outlineColor ="#ffffff", const char* _sliderHandleColor ="#2fa9e1", bool _showValue =true, int _vwFontSize =10); // CSS styling needs tweaking
     float GetSliderValue(int _ID);
     
-    int AddButton(char* _text ="TEST", float _sizePercentage =25, float _fontSize =4.5, char* _buttonColor ="#2fa9e1", char* _textColor ="#ffffff", char* _outlineColor ="#ffffff", char* _toggledColor ="#eb7a34");
+    int AddButton(const char* _text ="TEST", float _sizePercentage =25, float _fontSize =4.5, const char* _buttonColor ="#2fa9e1", const char* _textColor ="#ffffff", const char* _outlineColor ="#ffffff", const char* _toggledColor ="#eb7a34");
     bool GetButtonState(int _ID);
     
     int AddGridTable(int _rows =2, int _columns =2);             // Elements added afterwards are placed row by row until table is full
     int AddPlaceholder(float _sizeW =0.0f, float _sizeH =0.0f);  // Used to fill areas/table cells on page with empty space
 
-    int AddImage(char* _src ="https://cdn.shopify.com/s/files/1/1125/2198/files/TC_tinycircuits_logo_c0d46ca4-da2c-4e81-a88d-6780fae6b443_170x.png?v=1569438547", float _imageScale =50.0f, bool _srcType =true); // true for URL, false for base64 encoded
+    int AddImage(const char* _src ="https://cdn.shopify.com/s/files/1/1125/2198/files/TC_tinycircuits_logo_c0d46ca4-da2c-4e81-a88d-6780fae6b443_170x.png?v=1569438547", float _imageScale =50.0f, bool _srcType =true); // true for URL, false for base64 encoded
 
-    int AddCustom(char* _CSSContent ="", char* _HTMLContent ="", char* _JSContent ="");
+    int AddCustom(const char* _CSSContent ="", const char* _HTMLContent ="", const char* _JSContent ="");
     bool IsDirty(); // Returns state of library (returns true after any any element state has changed) and resets to returning false after being called
 
     void SetDisplayPollRate(float _seconds);
@@ -60,10 +60,10 @@ public:
     void HandleClient(WiFiServer _web_server);
 
 private:
-    char* pageTitle;
+    const char* pageTitle;
     int JSPollingRate;          // The number of times a second at which commands from the client are sent here, to the server
     int commandBufferMaxSize;   // The max number of commands that are sent every polling instance
-    char* pageBackgroundColor;
+    const char* pageBackgroundColor;
     int joystickCount = 0;
     int headerTextCount = 0;
     int gridTableCount = 0;

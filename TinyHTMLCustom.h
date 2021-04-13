@@ -5,15 +5,15 @@
 
 class TinyHTMLCustom{
 public:
-  TinyHTMLCustom(int _ID, char* _CSSContent, char* _HTMLContent, char* _JSContent, int _customElementIndex);
+  TinyHTMLCustom(int _ID, const char* _CSSContent, const char* _HTMLContent, const char* _JSContent, int _customElementIndex);
   void SendCustomJSToClient(WiFiClient &_client);
   void SendCustomHTMLToClient(WiFiClient &_client);
   void SendCustomCSSToClient(WiFiClient &_client);
 private:
   int ID;
-  char* CSSContent;
-  char* HTMLContent;
-  char* JSContent;
+  const char* CSSContent;
+  const char* HTMLContent;
+  const char* JSContent;
   int customElementIndex;
 };
 

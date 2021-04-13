@@ -1,6 +1,6 @@
 #include "TinyHTMLCustom.h"
 
-TinyHTMLCustom::TinyHTMLCustom(int _ID, char* _CSSContent, char* _HTMLContent, char* _JSContent, int _customElementIndex){
+TinyHTMLCustom::TinyHTMLCustom(int _ID, const char* _CSSContent, const char* _HTMLContent, const char* _JSContent, int _customElementIndex){
   ID = _ID;
   CSSContent = _CSSContent;
   HTMLContent = _HTMLContent;

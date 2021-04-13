@@ -1,6 +1,6 @@
 #include "TinyHTMLImg.h"
 
-TinyHTMLImg::TinyHTMLImg(int _ID, char* _src, float _imageScale, bool _srcType, int _imgElementIndex){
+TinyHTMLImg::TinyHTMLImg(int _ID, const char* _src, float _imageScale, bool _srcType, int _imgElementIndex){
   ID = _ID;
   src = _src;
   imageScale = _imageScale;

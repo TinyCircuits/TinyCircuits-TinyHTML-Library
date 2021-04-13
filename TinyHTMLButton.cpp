@@ -1,7 +1,7 @@
 #include "TinyHTMLButton.h"
 
 
-TinyHTMLButton::TinyHTMLButton(int _ID, char* _text, float _sizePercentage, float _fontSize, char* _buttonColor, char* _textColor, char* _outlineColor, char* _toggledColor, int _buttonElementIndex){
+TinyHTMLButton::TinyHTMLButton(int _ID, const char* _text, float _sizePercentage, float _fontSize, const char* _buttonColor, const char* _textColor, const char* _outlineColor, const char* _toggledColor, int _buttonElementIndex){
   ID = _ID;
   text = _text;
   sizePercentage = _sizePercentage;

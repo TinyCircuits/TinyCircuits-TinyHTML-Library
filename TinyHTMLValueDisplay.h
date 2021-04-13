@@ -5,7 +5,7 @@
 
 class TinyHTMLValueDisplay{
 public:
-  TinyHTMLValueDisplay(int _ID, float _defaultValue, char* _font, char* _fontColor, int _valueDisplayElementIndex);
+  TinyHTMLValueDisplay(int _ID, float _defaultValue, const char* _font, const char* _fontColor, int _valueDisplayElementIndex);
   void SendValueDisplayJSToClient(WiFiClient &_client);
   void SendValueDisplayHTMLToClient(WiFiClient &_client);
   void SetCurrentValue(float _currentValue);
@@ -14,8 +14,8 @@ public:
 private:
   int ID;
   float defaultValue;
-  char* font;
-  char* fontColor;
+  const char* font;
+  const char* fontColor;
   int valueDisplayElementIndex;
 
   float currentValue;  // The value of the display as set by user

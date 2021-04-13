@@ -13,8 +13,8 @@
 
 /*********************** EDIT THIS SECTION TO MATCH YOUR INFO *************************/
 // WiFi network information
-char ssid[] = "ExampleSSID1";           // Your network SSID (name)
-char wifi_password[] = "SecurePassword";    // Your network password
+char ssid[] = "TinyCircuits";           // Your network SSID (name)
+char wifi_password[] = "3336119997";    // Your network password
 IPAddress shield_ip;                    // Set by connect to WiFi function
 WiFiServer web_server(80);              // Hosting web server on port 80
 

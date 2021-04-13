@@ -5,14 +5,14 @@
 
 class TinyHTMLHeaderText{
 public:
-  TinyHTMLHeaderText(int _ID, char* _text, char* _fontColor, char* _font, int _headerLevel, bool _underline, int _headerTextElementIndex);
+  TinyHTMLHeaderText(int _ID, const char* _text, const char* _fontColor, const char* _font, int _headerLevel, bool _underline, int _headerTextElementIndex);
   void SendHeaderTextJSToClient(WiFiClient &_client);
   void SendHeaderTextHTMLToClient(WiFiClient &_client);
 private:
   int ID;
-  char* text;
-  char* fontColor;
-  char* font;
+  const char* text;
+  const char* fontColor;
+  const char* font;
   int headerLevel;
   bool underline;
   int headerTextElementIndex;

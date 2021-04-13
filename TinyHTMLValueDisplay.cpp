@@ -1,7 +1,7 @@
 #include "TinyHTMLValueDisplay.h"
 
 
-TinyHTMLValueDisplay::TinyHTMLValueDisplay(int _ID, float _defaultValue, char* _font, char* _fontColor, int _valueDisplayElementIndex){
+TinyHTMLValueDisplay::TinyHTMLValueDisplay(int _ID, float _defaultValue, const char* _font, const char* _fontColor, int _valueDisplayElementIndex){
   ID = _ID;
   defaultValue = _defaultValue;
   font = _font;
