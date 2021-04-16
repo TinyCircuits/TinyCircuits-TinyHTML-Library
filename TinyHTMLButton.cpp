@@ -16,37 +16,37 @@ TinyHTMLButton::TinyHTMLButton(int _ID, const char* _text, float _sizePercentage
 
 void TinyHTMLButton::SendButtonJSToClient(WiFiClient &_client){
   if(buttonElementIndex == 0){
-    _client.println("      class ButtonHandler{");
-    _client.println("       constructor(button_id){");
-    _client.println("         this.id = button_id;");
-    _client.println("         let button = document.getElementById(button_id);");
-    _client.println("         this.state = 0;");
-    _client.println("         let self = this;");
-    _client.println("         this.number_extra_cycles_after_polling = 4;");
+    _client.println("class ButtonHandler{");
+    _client.println(" constructor(button_id){");
+    _client.println("   this.id = button_id;");
+    _client.println("   let button = document.getElementById(button_id);");
+    _client.println("   this.state = 0;");
+    _client.println("   let self = this;");
+    _client.println("   this.number_extra_cycles_after_polling = 4;");
+    _client.println("   this.number_extra_cycles_after_polling_count = 0;");
+    _client.println("   function toggleButton(event){");
+    _client.println("   if(self.state == 0){");
+    _client.println("     self.state = 1;");
+    _client.println("   }else{");
+    _client.println("     self.state = 0;");
+    _client.println("   }");
+    _client.println("   commandQueue.push(\"B[\" + button_id + \",\" + self.state + \"]\");");
+    _client.println("   }");
+    _client.println("     this.ConstantActivePoll = function(){");
+    _client.println("       if(this.number_extra_cycles_after_polling_count <= this.number_extra_cycles_after_polling){");
+    _client.println("         commandQueue.push(\"B[\" + button_id + \",\" + self.state + \"]\");");
+    _client.println("         this.number_extra_cycles_after_polling_count++;");
+    _client.println("       }");
+    _client.println("       if(self.state == 1){");
     _client.println("         this.number_extra_cycles_after_polling_count = 0;");
-    _client.println("         function toggleButton(event){");
-    _client.println("           if(self.state == 0){");
-    _client.println("             self.state = 1;");
-    _client.println("           } else {");
-    _client.println("             self.state = 0;");
-    _client.println("           }");
-    _client.println("           commandQueue.push(\"B[\" + button_id + \",\" + self.state + \"]\");");
-    _client.println("         }");
-    _client.println("          this.ConstantActivePoll = function(){");
-    _client.println("           if(this.number_extra_cycles_after_polling_count <= this.number_extra_cycles_after_polling){");
-    _client.println("             commandQueue.push(\"B[\" + button_id + \",\" + self.state + \"]\");");
-    _client.println("             this.number_extra_cycles_after_polling_count++;");
-    _client.println("           }");
-    _client.println("           if(self.state == 1){");
-    _client.println("             this.number_extra_cycles_after_polling_count = 0;");
-    _client.println("           }");
-    _client.println("          }");
-    _client.println("         button.addEventListener(\"mousedown\", toggleButton);");
-    _client.println("         button.addEventListener(\"touchstart\", toggleButton);");
-    _client.println("         button.addEventListener(\"mouseup\", toggleButton);");
-    _client.println("         button.addEventListener(\"touchend\", toggleButton);");
     _client.println("       }");
     _client.println("     }");
+    _client.println("     button.addEventListener(\"mousedown\", toggleButton);");
+    _client.println("     button.addEventListener(\"touchstart\", toggleButton);");
+    _client.println("     button.addEventListener(\"mouseup\", toggleButton);");
+    _client.println("     button.addEventListener(\"touchend\", toggleButton);");
+    _client.println("   }");
+    _client.println(" }");
   }
 
   _client.print("button");

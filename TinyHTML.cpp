@@ -206,59 +206,59 @@ void TinyHTML::SendAllContentToClient(){
   client.print(commandBufferMaxSize);           // Define max command buffer size
   client.println(";");                          // End max command buffer size
 
-  client.println("      var currentCommand = \"\";");
-  client.println("      function handleRequestError(){");
-  client.println("        console.log(\"ERROR! (failed or canceled request, resending!)\");");
-  client.println("        POSTArduino(currentCommand);");
-  client.println("      }");
+  client.println("var currentCommand = \"\";");
+  client.println("function handleRequestError(){");
+  client.println("  console.log(\"ERROR! (failed or canceled request, resending!)\");");
+  client.println("  POSTArduino(currentCommand);");
+  client.println("}");
 
-  client.println("      var request = new XMLHttpRequest();");
-  client.println("      request.addEventListener(\"error\", handleRequestError)");
-  client.println("      function POSTArduino(command){");
-  client.println("        currentCommand = command;");
-  client.println("        nocache = \"nocache\" + Math.random() * 1000000;");
-  client.println("        request.open(\"GET\", command + nocache, true);");
-  client.println("        request.send(null);");
-  client.println("        return false;");
-  client.println("      }");
+  client.println("var request = new XMLHttpRequest();");
+  client.println("request.addEventListener(\"error\", handleRequestError)");
+  client.println("function POSTArduino(command){");
+  client.println("  currentCommand = command;");
+  client.println("  nocache = \"nocache\" + Math.random() * 1000000;");
+  client.println("  request.open(\"GET\", command + nocache, true);");
+  client.println("  request.send(null);");
+  client.println("  return false;");
+  client.println("}");
 
-  client.println("      var commandQueue = new Array();");
-  client.println("      function pollDataForServer(){");
-  client.println("        var packed_commands = \"\";");
-  client.println("        var i = 0;");
-  client.println("        while(i < MAX_CMD_BUFFER_SIZE && typeof commandQueue[0] !== 'undefined'){");
-  client.println("          packed_commands += commandQueue[0];");
-  client.println("          commandQueue.splice(0, 1);");
-  client.println("          i++;");
-  client.println("        }");
-  client.println("        if(i > 0){");
-  client.println("          packed_commands += \"$\";");
-  client.println("          console.log(packed_commands);");
-  client.println("          POSTArduino(packed_commands);");
-  client.println("        }");
-  client.println("      }");
+  client.println("var commandQueue = new Array();");
+  client.println("function pollDataForServer(){");
+  client.println("  var packed_commands = \"\";");
+  client.println("  var i = 0;");
+  client.println("  while(i < MAX_CMD_BUFFER_SIZE && typeof commandQueue[0] !== 'undefined'){");
+  client.println("    packed_commands += commandQueue[0];");
+  client.println("    commandQueue.splice(0, 1);");
+  client.println("    i++;");
+  client.println("  }");
+  client.println("  if(i > 0){");
+  client.println("    packed_commands += \"$\";");
+  client.println("    console.log(packed_commands);");
+  client.println("    POSTArduino(packed_commands);");
+  client.println("  }");
+  client.println("}");
   
-  client.println("      window.setInterval(function(){");
-  client.println("        pollDataForServer();");
-  client.println("      }, 1000/POLLING_RATE);");
+  client.println("window.setInterval(function(){");
+  client.println("  pollDataForServer();");
+  client.println("}, 1000/POLLING_RATE);");
 
-  client.println("      function fetchDisplayValues(){");
-  client.println("        console.log(\"Fetching Display Value Batch...\");");
-  client.println("        POSTArduino(\"I[0,0]$\");");
-  client.println("        request.onreadystatechange = function(){");
-  client.println("          if(request.readyState == 4 && request.status == 200){");
-  client.println("            if(request.responseText != null){");
-  client.println("              var displayValuesAndIDS = request.responseText.split(\"\\n\");");
-  client.println("              for(var i=0; i < displayValuesAndIDS.length-1; i+=2){");
-  client.println("                document.getElementById(parseInt(displayValuesAndIDS[i], 10)).value = parseFloat(displayValuesAndIDS[i+1]);");
-  client.println("              }");
-  client.println("            }");
-  client.println("          }");
+  client.println("function fetchDisplayValues(){");
+  client.println("  console.log(\"Fetching Display Value Batch...\");");
+  client.println("  POSTArduino(\"I[0,0]$\");");
+  client.println("  request.onreadystatechange = function(){");
+  client.println("    if(request.readyState == 4 && request.status == 200){");
+  client.println("      if(request.responseText != null){");
+  client.println("        var displayValuesAndIDS = request.responseText.split(\"\\n\");");
+  client.println("        for(var i=0; i < displayValuesAndIDS.length-1; i+=2){");
+  client.println("          document.getElementById(parseInt(displayValuesAndIDS[i], 10)).value = parseFloat(displayValuesAndIDS[i+1]);");
   client.println("        }");
   client.println("      }");
+  client.println("    }");
+  client.println("  }");
+  client.println("}");
   
-  client.println("      window.setInterval(function(){");
-  client.println("        fetchDisplayValues();");
+  client.println("window.setInterval(function(){");
+  client.println("  fetchDisplayValues();");
   client.print("      }, "); client.print(displayPollRate); client.println(");");
   
   hierarchyList.TraverseListAndSendJS(client);  // Send the rest of the node JS to client web broswer

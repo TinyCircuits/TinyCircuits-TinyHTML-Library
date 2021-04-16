@@ -195,7 +195,7 @@ void TinyHTMLJoystick::SendJoystickJSToClient(WiFiClient &_client){
   _client.print(ID);
   _client.println("\");");
 
-  _client.println("      window.setInterval(function(){");
+  _client.println("window.setInterval(function(){");
   _client.print("joystick");
   _client.print(ID);
   _client.print(".ConstantActivePoll();");
