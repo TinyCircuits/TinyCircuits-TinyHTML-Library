@@ -206,13 +206,22 @@ void TinyHTML::SendAllContentToClient(){
   client.print(commandBufferMaxSize);           // Define max command buffer size
   client.println(";");                          // End max command buffer size
 
+  client.println("      var currentCommand = \"\";");
+  client.println("      function handleRequestError(){");
+  client.println("        console.log(\"ERROR! (failed or canceled request, resending!)\");");
+  client.println("        POSTArduino(currentCommand);");
+  client.println("      }");
+
   client.println("      var request = new XMLHttpRequest();");
+  client.println("      request.addEventListener(\"error\", handleRequestError)");
   client.println("      function POSTArduino(command){");
+  client.println("        currentCommand = command;");
   client.println("        nocache = \"nocache\" + Math.random() * 1000000;");
   client.println("        request.open(\"GET\", command + nocache, true);");
   client.println("        request.send(null);");
   client.println("        return false;");
   client.println("      }");
+
   client.println("      var commandQueue = new Array();");
   client.println("      function pollDataForServer(){");
   client.println("        var packed_commands = \"\";");

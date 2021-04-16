@@ -20,8 +20,8 @@
 
 /*********************** EDIT THIS SECTION TO MATCH YOUR INFO *************************/
 // WiFi network information
-char ssid[] = "YourSSID";               // Your network SSID (name)
-char wifi_password[] = "SecurePass";    // Your network password
+char ssid[] = "NetworkName";           // Your network SSID (name)
+char wifi_password[] = "Password1";    // Your network password
 
 
 // Set the page title
@@ -60,13 +60,13 @@ void setup() {
   HTML.AddHeaderText("Increasing float:");          // Add a header to tell user that below value increases
   DISPLAY_VALUE_ID1 = HTML.AddValueDisplay(0.01f);  // Add display value element to show a float increase every 2 seconds
 
-  Wire.begin();               // Initialize wire library
+  Wire.begin();                 // Initialize wire library
   #if defined(ARDUINO_ARCH_AVR) or defined(ARDUINO_ARCH_SAMD)
     WiFi.setPins(8, 2, A3, -1); // Initialize Wifi hardware: SETTING PINS VERY IMPORTANT FOR TINYCIRCUITS WIFI SHIELD
   #endif
-  delay(10);                  // Wait 10ms for hardware to setup
+  delay(10);                    // Wait 10ms for hardware to setup
 
-  if(!connectWifi()){         // Connect WiFi, stop program if connection fails
+  if(!connectWifi()){           // Connect WiFi, stop program if connection fails
     SerialMonitorInterface.println("WiFi could not connect - halting program!");
     while(1);
   }
@@ -80,7 +80,7 @@ void setup() {
 void loop() {
   HTML.HandleClient();  // Call every loop so that data sent from web browser to server (Arduino) is stored in library
   
-  v = v + 0.1f;
+  v = v + 0.01f;
   HTML.SetValueDisplay(DISPLAY_VALUE_ID1, v); // Send float to display value element on web broswer client (could be used for sensor data)
 
   // Only display information in serial monitor if a command has been received from the web broswer (i.e. an element was interacted with)

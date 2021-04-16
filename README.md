@@ -49,7 +49,7 @@ The library provides the following functions for creating and organizing element
         - _underline [bool: passing true underlines the text]
 
 
-* ```AddLineBreak(float _VWthickness, char* _lineColor)```
+* ```int AddLineBreak(float _VWthickness, char* _lineColor)```
     - Adds a horizontal line break to the page
     - Parameters:
         - _VWthickness [float: how thick the line is in terms of viewport widths]

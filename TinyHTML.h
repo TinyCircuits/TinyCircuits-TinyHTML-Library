@@ -33,18 +33,18 @@ public:
 
     int AddLineBreak(float _VWthickness =0.5f, const char* _lineColor ="#cccccc");
 
-    int AddValueDisplay(float _defaultValue =2000, const char* _font ="Arial", const char* _fontColor ="#ffffff");
+    int AddValueDisplay(float _defaultValue =2000, const char* _font ="Arial", const char* _fontColor ="#cccccc");
     void SetValueDisplay(int _ID, float _currentValue);
     
-    int AddJoystick(float _sizePercentage =85, float _joystickSizePercentage =35, const char* _backgroundColor ="#333333", const char* _outlineColor ="#ffffff", const char* _joystickColor ="#2fa9e1");
+    int AddJoystick(float _sizePercentage =85, float _joystickSizePercentage =35, const char* _backgroundColor ="#333333", const char* _outlineColor ="#cccccc", const char* _joystickColor ="#2fa9e1");
     float GetJoystickX(int _ID);
     float GetJoystickY(int _ID);
     
-    int AddHorizontalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, const char* _backgroundColor ="#333333", const char* _outlineColor ="#ffffff", const char* _sliderHandleColor ="#2fa9e1", bool _showValue =true, int _vwFontSize =10);
-    int AddVerticalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, const char* _backgroundColor ="#333333", const char* _outlineColor ="#ffffff", const char* _sliderHandleColor ="#2fa9e1", bool _showValue =true, int _vwFontSize =10); // CSS styling needs tweaking
+    int AddHorizontalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, const char* _backgroundColor ="#333333", const char* _outlineColor ="#cccccc", const char* _sliderHandleColor ="#2fa9e1", bool _showValue =true, int _vwFontSize =10);
+    int AddVerticalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, const char* _backgroundColor ="#333333", const char* _outlineColor ="#cccccc", const char* _sliderHandleColor ="#2fa9e1", bool _showValue =true, int _vwFontSize =10); // CSS styling needs tweaking
     float GetSliderValue(int _ID);
     
-    int AddButton(const char* _text ="TEST", float _sizePercentage =25, float _fontSize =4.5, const char* _buttonColor ="#2fa9e1", const char* _textColor ="#ffffff", const char* _outlineColor ="#ffffff", const char* _toggledColor ="#eb7a34");
+    int AddButton(const char* _text ="TEST", float _sizePercentage =25, float _fontSize =4.5, const char* _buttonColor ="#2fa9e1", const char* _textColor ="#cccccc", const char* _outlineColor ="#cccccc", const char* _toggledColor ="#eb7a34");
     bool GetButtonState(int _ID);
     
     int AddGridTable(int _rows =2, int _columns =2);             // Elements added afterwards are placed row by row until table is full
@@ -64,7 +64,7 @@ private:
     const char* pageTitle;
     int JSPollingRate;          // The number of times a second at which commands from the client are sent here, to the server
     int commandBufferMaxSize;   // The max number of commands that are sent every polling instance
-    const char* pageBackgroundColor;
+    const char* pageBackgroundColor = "#000000";
     int joystickCount = 0;
     int headerTextCount = 0;
     int gridTableCount = 0;
