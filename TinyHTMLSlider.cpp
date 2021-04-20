@@ -20,32 +20,32 @@ TinyHTMLSlider::TinyHTMLSlider(int _ID, float _rangeMin, float _rangeMax, float 
 
 void TinyHTMLSlider::SendSliderJSToClient(WiFiClient &_client){
   if(sliderElementIndex == 0){
-    _client.println("      class SliderHandler{");
-    _client.println("       constructor(slider_id){");
-    _client.println("       let ID = slider_id;");
-    _client.println("       let slider = document.getElementById(slider_id);");
-    _client.println("       let current_value = 0;");
-    _client.println("       let sent_count = 0;");
-    _client.println("       let interval_var = -1;");
-    _client.println("       let self = this;");
-    _client.println("       function send(){");
-    _client.println("         commandQueue.push(\"A[\" + slider_id + \",\" + current_value + \"]\");");
-    _client.println("         current_value = slider.value;");
-    _client.println("         sent_count++;");
-    _client.println("         if(sent_count >= 5){");
-    _client.println("           sent_count = 0;");
-    _client.println("           clearInterval(interval_var);");
-    _client.println("         }");
-    _client.println("       }");
-    _client.println("       function handleSliderMove(event){");
-    _client.println("         if(sent_count == 0){");
-    _client.println("           clearInterval(interval_var);");
-    _client.println("           interval_var = setInterval(send, (1000/POLLING_RATE)/2);");
-    _client.println("         }");
-    _client.println("       }");
-    _client.println("       slider.addEventListener('input', handleSliderMove);");
-    _client.println("       }");
-    _client.println("     }");
+    _client.println("class SliderHandler{");
+    _client.println(" constructor(slider_id){");
+    _client.println(" let ID = slider_id;");
+    _client.println(" let slider = document.getElementById(slider_id);");
+    _client.println(" let current_value = 0;");
+    _client.println(" let sent_count = 0;");
+    _client.println(" let interval_var = -1;");
+    _client.println(" let self = this;");
+    _client.println(" function send(){");
+    _client.println("   commandQueue.push(\"A[\" + slider_id + \",\" + current_value + \"]\");");
+    _client.println("   current_value = slider.value;");
+    _client.println("   sent_count++;");
+    _client.println("   if(sent_count >= 5){");
+    _client.println("     sent_count = 0;");
+    _client.println("     clearInterval(interval_var);");
+    _client.println("   }");
+    _client.println(" }");
+    _client.println(" function handleSliderMove(event){");
+    _client.println("   if(sent_count == 0){");
+    _client.println("     clearInterval(interval_var);");
+    _client.println("     interval_var = setInterval(send, (1000/POLLING_RATE)/2);");
+    _client.println("   }");
+    _client.println(" }");
+    _client.println(" slider.addEventListener('input', handleSliderMove);");
+    _client.println(" }");
+    _client.println("}");
 
     _client.println("function UpdateSliderOutput(sliderID, value){");
     _client.println(" sliderOutputElement = document.getElementById(sliderID.toString() + \"B\");");

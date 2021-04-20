@@ -22,6 +22,8 @@
 // WiFi network information
 char ssid[] = "NetworkName";           // Your network SSID (name)
 char wifi_password[] = "Password1";    // Your network password
+IPAddress shield_ip;                    // The IP address of the shield after initialization
+bool show_ip = true;                    // Flag used to determine if the IP should be displayed in the serial monitor or (set by loop())
 
 
 // Set the page title
@@ -41,8 +43,7 @@ int DISPLAY_VALUE_ID1;
 float v = 0.0f;
 
 void setup() {
-  SerialMonitorInterface.begin(115200); // Initialize serial
-//  while(!SerialMonitorInterface){}    // Wait until serial monitor is opened before doing anything
+  SerialMonitorInterface.begin(115200);             // Initialize serial
 
   HTML.SetPageBackgroundColor("#000000");           // Set the page background to black
   HTML.AddHeaderText("TinyHTML Feature Demo");      // Add some header text
@@ -85,6 +86,9 @@ void loop() {
 
   // Only display information in serial monitor if a command has been received from the web broswer (i.e. an element was interacted with)
   if(HTML.IsDirty()){
+    // Do not show the IP anymore after this since a client connected and moved an element
+    show_ip = false;
+    
     SerialMonitorInterface.print("Joystick ");
     SerialMonitorInterface.print(JOYSTICK_ID1);
     SerialMonitorInterface.print(" x,y: ");
@@ -111,6 +115,10 @@ void loop() {
     SerialMonitorInterface.print(BUTTON_ID1);
     SerialMonitorInterface.print(": ");
     SerialMonitorInterface.println(HTML.GetButtonState(BUTTON_ID1));
+  } else if (show_ip){
+    // Print out the IP of the shield every loop so that the user can always see it
+    SerialMonitorInterface.print("TinyShield IP Address: ");
+    SerialMonitorInterface.println(shield_ip);
   }
 }
 
@@ -148,7 +156,8 @@ int connectWifi(void) {
 
     // print your WiFi shield's IP address:
     SerialMonitorInterface.print("   TinyShield IP Address: ");
-    SerialMonitorInterface.println(WiFi.localIP());
+    shield_ip = WiFi.localIP();
+    SerialMonitorInterface.println(shield_ip);
   }
   return 1;
 }
