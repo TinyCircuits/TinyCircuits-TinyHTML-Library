@@ -198,6 +198,7 @@ void TinyHTML::SendAllContentToClient(){
   client.println("</body>");
 
   client.println("<script>");
+  
   client.print("var POLLING_RATE = ");          // Declare and start defining poll rate variable
   client.print(JSPollingRate);                  // Define poll rate
   client.println(";");                          // End poll rate line
@@ -213,7 +214,6 @@ void TinyHTML::SendAllContentToClient(){
   client.println("}");
 
   client.println("var request = new XMLHttpRequest();");
-  client.println("request.addEventListener(\"error\", handleRequestError)");
   client.println("function POSTArduino(command){");
   client.println("  currentCommand = command;");
   client.println("  nocache = \"nocache\" + Math.random() * 1000000;");
@@ -262,6 +262,7 @@ void TinyHTML::SendAllContentToClient(){
   client.print("      }, "); client.print(displayPollRate); client.println(");");
   
   hierarchyList.TraverseListAndSendJS(client);  // Send the rest of the node JS to client web broswer
+  
   client.println("</script>");
   client.println("</html>");
 }
@@ -302,12 +303,15 @@ void TinyHTML::HandleClient(){
               switch(commandType){                                                  // Check which element this command came from so data can be stored correctly
                 case 'S':
                   SetJoystickXY(atoi(decodingParameters[0]), atof(decodingParameters[1]), atof(decodingParameters[2]));
+                  client.println("");
                 break;
                 case 'A':
                   SetSliderValue(atoi(decodingParameters[0]), atof(decodingParameters[1]));
+                  client.println("");
                 break;
                 case 'B':
                   SetButtonState(atoi(decodingParameters[0]), atoi(decodingParameters[1]));
+                  client.println("");
                 break;
                 case 'I':   // Client is asking for display value element data, traverse list and find these elements and send dirty ones
                   SendAllDisplayValuesToClient();

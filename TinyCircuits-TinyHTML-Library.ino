@@ -20,8 +20,8 @@
 
 /*********************** EDIT THIS SECTION TO MATCH YOUR INFO *************************/
 // WiFi network information
-char ssid[] = "NetworkName";           // Your network SSID (name)
-char wifi_password[] = "Password1";    // Your network password
+char ssid[] = "NetworkName";            // Your network SSID (name)
+char wifi_password[] = "Password1";     // Your network password
 IPAddress shield_ip;                    // The IP address of the shield after initialization
 bool show_ip = true;                    // Flag used to determine if the IP should be displayed in the serial monitor or (set by loop())
 
@@ -39,8 +39,8 @@ int SLIDER_ID2;
 int SLIDER_ID3;
 int BUTTON_ID1;
 int DISPLAY_VALUE_ID1;
-
 float v = 0.0f;
+
 
 void setup() {
   SerialMonitorInterface.begin(115200);             // Initialize serial
@@ -77,7 +77,9 @@ void setup() {
   SerialMonitorInterface.print("Started web server! ");
 }
 
-
+// Loop handles calling AJAX server <-> client communication
+// logic so that user/webpage control information can be stored
+// in the library for subsequent use
 void loop() {
   HTML.HandleClient();  // Call every loop so that data sent from web browser to server (Arduino) is stored in library
   

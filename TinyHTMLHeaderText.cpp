@@ -32,7 +32,6 @@ void TinyHTMLHeaderText::SendHeaderTextHTMLToClient(WiFiClient &_client){
   }
   _client.print(";color:");               // Start font color
   _client.print(fontColor);               // Insert user defined font color
-  _client.print(";font-size:5vw");        // Font size 
   _client.print(">");                     // End HTML in-line CSS styling
   _client.print(text);                    // Insert header text
   _client.print("</h");                   // Start end of header element/end header tag

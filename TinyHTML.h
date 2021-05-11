@@ -44,7 +44,7 @@ public:
     int AddVerticalSlider(float _rangeMin =-1, float _rangeMax =1, float _stepSize =0.1f, float _widthPercentage =8, float _lengthPercentage =85, float _sliderVWSize =7, const char* _backgroundColor ="#333333", const char* _outlineColor ="#cccccc", const char* _sliderHandleColor ="#2fa9e1", bool _showValue =true, int _vwFontSize =10); // CSS styling needs tweaking
     float GetSliderValue(int _ID);
     
-    int AddButton(const char* _text ="TEST", float _sizePercentage =25, float _fontSize =4.5, const char* _buttonColor ="#2fa9e1", const char* _textColor ="#cccccc", const char* _outlineColor ="#cccccc", const char* _toggledColor ="#eb7a34");
+    int AddButton(const char* _text ="TEST", float _sizePercentage =25.0f, float _fontSize =4.0f, const char* _buttonColor ="#2fa9e1", const char* _textColor ="#cccccc", const char* _outlineColor ="#cccccc", const char* _toggledColor ="#eb7a34");
     bool GetButtonState(int _ID);
     
     int AddGridTable(int _rows =2, int _columns =2);             // Elements added afterwards are placed row by row until table is full

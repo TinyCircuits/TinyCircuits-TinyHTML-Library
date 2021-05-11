@@ -108,22 +108,6 @@ void TinyHTMLJoystick::SendJoystickJSToClient(WiFiClient &_client){
     _client.println("           this.number_extra_cycles_after_polling_count++;");
     _client.println("         }");
     _client.println("        }");
-    _client.println("       function handleOrientation(event){");
-    _client.println("           var absolute = event.absolute;  // Is using Earth as reference frame, or something else that needs testing with");
-    _client.println("           var alpha    = event.alpha;   // Rotation (deg) about the z-axis (points up towards your face from the phone screen if looking at the screen)");
-    _client.println("           var beta     = event.beta;    // Rotation (deg) about the x-axis (print right, like East, when looking down at screen)");
-    _client.println("           var gamma    = event.gamma;   // Rotation (deg) about the y-axis (point up, like North, if looking down at the screen)");
-    _client.println("           if(self.double_tapped == 1){");
-    _client.println("           self.current_pos_percent = {x: beta/180.0, y: gamma/180.0};");
-    _client.println("           const joystick_radius = joystick.getBoundingClientRect().width/2;");
-    _client.println("           const joystick_container_radius = joystick_container.getBoundingClientRect().width/2;");
-    _client.println("           const max_distance = joystick_container_radius - joystick_radius;");
-    _client.println("           const angle = Math.atan2(self.current_pos_percent.y, self.current_pos_percent.x);");
-    _client.println("           const temp_pos = {x: max_distance*Math.cos(angle), y: max_distance*Math.sin(angle)};");
-    _client.println("           joystick.style.transform = `translate3d(${temp_pos.x}px, ${temp_pos.y}px, 0px)`;");
-    _client.println("           self.joystick_active = 1;");
-    _client.println("           }");
-    _client.println("       }");
     _client.println("       var keys = [];");
     _client.println("       window.addEventListener(\"keydown\",");
     _client.println("         function(e){");
@@ -176,7 +160,6 @@ void TinyHTMLJoystick::SendJoystickJSToClient(WiFiClient &_client){
     _client.println("           joystick.style.transform = `translate3d(${temp_pos.x}px, ${temp_pos.y}px, 0px)`;");
     _client.println("         }");
     _client.println("       }");
-    _client.println("       document.addEventListener(\"deviceorientation\", handleOrientation, true);");
     _client.println("       document.addEventListener(\"keypress\", handleKeyPress, true);");
     _client.println("       joystick_container.addEventListener('mousedown', handleDown);");
     _client.println("       joystick_container.addEventListener('touchstart', handleDown);");
@@ -220,7 +203,6 @@ void TinyHTMLJoystick::SendJoystickHTMLToClient(WiFiClient &_client){
   
   // End padding size percentage, and trial and error style paramters to make joystick stay centered
   _client.print("%;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;touch-action:none;>");
-
 
   _client.print("<div id=");                        // Start div tag and id for joystick
   _client.print(ID);                                // Insert user defined element ID for joystick
